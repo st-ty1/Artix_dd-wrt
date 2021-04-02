@@ -1,0 +1,12 @@
+--- /home/stephan/dd-wrt/src/router/rules/privoxy.mk	2021-03-31 23:13:07.950000000 +0200
++++ privoxy.mk	2021-03-05 19:27:20.783260400 +0100
+@@ -23,7 +23,7 @@
+ privoxy-clean:
+ 	$(MAKE) -C privoxy clean
+ 
+-privoxy-configure: pcre-configure pcre zlib
++privoxy-configure: 
+ 	cd privoxy && rm -rf config.{cache,status} \
+ 	&& autoheader && autoconf \
+ 	&& ./configure ac_cv_func_setpgrp_void=yes --prefix=/usr --enable-compression --sysconfdir=/etc/privoxy --target=$(ARCH)-linux --host=$(ARCH) CC=$(ARCH)-linux-uclibc-gcc CFLAGS="$(COPTS) $(MIPS16_OPT) -I$(TOP)/zlib -I$(TOP)/pcre -ffunction-sections -fdata-sections -Wl,--gc-sections" CPPFLAGS="$(COPTS) $(MIPS16_OPT) -I$(TOP)/zlib -I$(TOP)/pcre -ffunction-sections -fdata-sections -Wl,--gc-sections" LDFLAGS="$(COPTS) $(MIPS16_OPT) -ffunction-sections -fdata-sections -Wl,--gc-sections -L$(TOP)/zlib -L$(TOP)/pcre/.libs -lz -fPIC" 
+\ No newline at end of file

@@ -1,0 +1,16 @@
+--- /home/stephan/dd-wrt/src/router/rules/libzip.mk	2021-03-31 23:13:07.940000000 +0200
++++ libzip.mk	2021-03-05 19:27:20.773260400 +0100
+@@ -17,11 +17,11 @@
+ LIBZIP_EXTRA_LDFLAGS=-L$(TOP)/_staging/usr/lib -L$(TOP)/zlib -L$(TOP)/openssl -lz -lssl -lcrypto
+ 
+ 
+-libzip-configure: zlib openssl
++libzip-configure:
+ 	$(call CMakeClean,$(LIBZIP_PKG_BUILD_DIR))
+ 	$(call CMakeConfigure,$(LIBZIP_PKG_BUILD_DIR),$(LIBZIP_STAGING_DIR),$(LIBZIP_CMAKE_OPTIONS),$(LIBZIP_EXTRA_CFLAGS),$(LIBZIP_EXTRA_LDFLAGS),.) 
+ 
+-libzip: zlib openssl
++libzip:
+ 	$(MAKE) -C libzip
+ 
+ libzip-install:

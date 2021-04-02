@@ -1,0 +1,28 @@
+--- /home/stephan/dd-wrt/src/router/rules/iptables-new.mk	2021-03-31 23:13:07.940000000 +0200
++++ iptables-new.mk	2021-03-22 19:43:14.417514800 +0100
+@@ -1,6 +1,6 @@
+ iptables-new-configure:
+ 	cd iptables-new && ./autogen.sh
+-	cd iptables-new && ./configure --host=$(ARCH)-linux-elf --prefix=/usr --libdir=/usr/lib --with-kernel=$(LINUXDIR) --enable-libipq --disable-nftables \
++	cd iptables-new && ./configure --host=$(ARCH)-linux-gnu --prefix=/usr --libdir=/usr/lib --with-kernel=$(LINUXDIR) --enable-libipq --disable-nftables --disable-connlabel \
+ 		CFLAGS="$(COPTS) $(MIPS16_OPT) $(LTO) -ffunction-sections -fdata-sections -Wl,--gc-sections -DNEED_PRINTF -fcommon" \
+ 		LDFLAGS="$(COPTS) $(MIPS16_OPT) $(LDLTO) -ffunction-sections -fdata-sections -Wl,--gc-sections -DNEED_PRINTF" \
+ 		AR_FLAGS="cru $(LTOPLUGIN)" \
+@@ -18,7 +18,7 @@
+ ifeq ($(CONFIG_IPTABLES),y)
+ 	$(MAKE) -C iptables-new install DESTDIR=$(INSTALLDIR)/iptables-new
+ 	rm -rf $(INSTALLDIR)/iptables-new/usr/include
+-	rm -rf $(INSTALLDIR)/iptables-new/usr/lib
++#	rm -rf $(INSTALLDIR)/iptables-new/usr/lib
+ 	rm -rf $(INSTALLDIR)/iptables-new/usr/share
+         ifeq ($(CONFIG_L7),y)
+ 		  install -d $(INSTALLDIR)/iptables-new/etc/l7-protocols
+@@ -33,7 +33,7 @@
+ 	@true
+ endif
+ 
+-iptables-distclean:
++iptables-new-distclean:
+ 	-$(MAKE) -C iptables-new distclean
+ 
+ 

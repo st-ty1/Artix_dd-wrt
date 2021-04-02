@@ -1,0 +1,9 @@
+--- /home/stephan/dd-wrt/src/router/rules/sqlite.mk	2021-03-31 23:13:07.950000000 +0200
++++ sqlite.mk	2021-03-05 19:27:20.783260400 +0100
+@@ -1,5 +1,5 @@
+ sqlite-configure:
+-	cd sqlite && ./configure --host=$(ARCH)-linux --disable-readline --prefix=/usr --libdir=/usr/lib --disable-static-shell CFLAGS="$(COPTS) -fPIC"
++	cd sqlite && autoreconf -fi && ./configure --host=$(ARCH)-linux --disable-readline --prefix=/usr --libdir=/usr/lib --disable-static-shell CFLAGS="$(COPTS) -fPIC"
+ 
+ sqlite:
+ 	make -C sqlite

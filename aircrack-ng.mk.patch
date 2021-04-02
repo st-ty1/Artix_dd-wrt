@@ -1,0 +1,17 @@
+--- /home/stephan/dd-wrt/src/router/rules/aircrack-ng.mk	2021-03-31 23:13:07.940000000 +0200
++++ aircrack-ng.mk	2021-03-05 19:27:20.773260400 +0100
+@@ -1,4 +1,4 @@
+-aircrack-ng: pcre zlib
++aircrack-ng: 
+ 	$(MAKE) -C aircrack-ng
+ 
+ aircrack-ng-install:
+@@ -9,7 +9,7 @@
+ 	rm -rf $(INSTALLDIR)/aircrack-ng/usr/include
+ 	-rm -f $(INSTALLDIR)/aircrack-ng/usr/lib/*.la
+ 
+-aircrack-ng-configure: pcre zlib
++aircrack-ng-configure: 
+ 	cd aircrack-ng && ./autogen.sh
+ 	cd aircrack-ng && ./configure --host=$(ARCH)-linux \
+ 	--with-openssl="$(TOP)/openssl" \

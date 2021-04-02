@@ -1,0 +1,10 @@
+--- /home/stephan/dd-wrt/src/router/hostapd2/hostapd/Makefile	2021-03-31 23:13:07.890000000 +0200
++++ Makefile_hostapd2	2021-03-05 19:27:20.773260400 +0100
+@@ -12,6 +12,7 @@
+ CFLAGS += -I../src/crypto
+ CFLAGS += -I../src/utils
+ CFLAGS += -I../src/common
++CFLAGS += -I../../madwifi
+ LDFLAGS += -ffunction-sections -fdata-sections -Wl,--gc-sections
+ 
+ # Uncomment following line and set the path to your kernel tree include

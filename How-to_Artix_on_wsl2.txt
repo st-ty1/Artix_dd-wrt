@@ -1,0 +1,47 @@
+Use windows terminal:
+====================
+
+$ mkdir %USERPROFILE%\wsl\artix
+$ cd %USERPROFILE%\wsl\artix
+$ curl -O https://github.com/hdk5/ArtixWSL/releases/download/20200502153634-60934cb/Artix.zip
+$ tar -xf Artix.zip
+$ wsl --import artix %USERPROFILE%\wsl\artix artix-rootfs.tar.gz
+$ ./artix
+   ------  automatic switch to Linux  -------
+[PC-NAME Artix]# pacman-key --init
+[PC-NAME Artix]# pacman-key --populate archlinux artix
+[PC-NAME Artix]# pacman -Syu
+[PC-NAME Artix]# pacman -S sudo nano make gcc which autoconf automake pkgconf patch bison flex cmake rpcsvc-proto gperf python intltool re2c diffutils git svn gtk-doc bc gengetopt talloc
+[PC-NAME Artix]# nano /etc/pacman.conf  (enable multilib repository by uncomment the [multilib] section: 
+					[multilib]
+					Include = /etc/pacman.d/mirrorlist	
+					)
+[PC-NAME Artix]# pacman -Syy
+[PC-NAME Artix]# pacman -S lib32-glibc lib32-gcc-libs lib32-zlib
+[PC-NAME Artix]# nano /etc/wsl.conf  	(add the following:
+					[interop]
+					appendWindowsPath=false
+					)
+[PC-NAME Artix]# echo "%wheel ALL=(ALL)  ALL" > /etc/sudoers.d/01wheel
+[PC-NAME Artix]# useradd -m -G wheel <username>
+[PC-NAME Artix]# passwd <username>
+[PC-NAME Artix]# exit
+   ----- automatic switch to Windows  -------
+$ .\artix config --default-user <username>
+$ .\artix
+   ------ automatic switch to Linux  -------
+[<username>@PC-NAME ~]$ cd $HOME
+[<username>@PC-NAME ~]$ git config --global core.eol lf
+[<username>@PC-NAME ~]$ git config --global core.autocrlf false
+[<username>@PC-NAME ~]$ git clone https://github.com/mirror/dd-wrt.git	
+[<username>@PC-NAME ~]$ git clone https://github.com/st-ty1/Artix_dd-wrt
+[<username>@PC-NAME ~]$ mkdir dd-wrt_toolchains
+[<username>@PC-NAME ~]$ cd dd-wrt_toolchains
+[<username>@PC-NAME ~]$ wget -O toolchains.tar.gz https://download1.dd-wrt.com/dd-wrtv2/downloads/toolchains/toolchains.tar.xz
+[<username>@PC-NAME ~]$ tar -xvjf tololchains.tar.xz
+[<username>@PC-NAME ~]$ cd ..
+[<username>@PC-NAME ~]$ wget -O daq-2.0.6.tar.gz https://www.snort.org/downloads/archive/snort/daq-2.0.6.tar.gz
+[<username>@PC-NAME ~]$ tar -xvzf daq-2.0.6.tar.gz
+[<username>@PC-NAME ~]$ cd Artix_dd-wrt
+[<username>@PC-NAME Artix_dd-wrt]$ chmod 744 *.sh
+[<username>@PC-NAME Artix_dd-wrt]$ ./build_dd-wrt_arm.sh  (or  ./build_dd-wrt_mipsel.sh)

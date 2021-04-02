@@ -1,0 +1,15 @@
+--- /home/stephan/dd-wrt/src/router/rules/tcpdump.mk	2021-03-31 23:13:07.950000000 +0200
++++ tcpdump.mk	2021-03-05 19:27:20.783260400 +0100
+@@ -1,6 +1,10 @@
+ tcpdump-configure: libpcap
+-	cd tcpdump && ./configure --host=$(ARCH)-linux --enable-shared --enable-ipv6 --libdir=/lib --disable-static CC="$(CC)" ac_cv_linux_vers=2 ac_cv_ssleay_path=no td_cv_buggygetaddrinfo=no CPPFLAGS="-I../libpcap $(COPTS) $(MIPS16_OPT) $(LTO)  -ffunction-sections -fdata-sections -Wl,--gc-sections -D_GNU_SOURCE -DNEED_PRINTF" CFLAGS="-I../libpcap $(COPTS) $(LTO) $(MIPS16_OPT) -D_GNU_SOURCE  -ffunction-sections -fdata-sections -Wl,--gc-sections -DNEED_PRINTF -DHAVE_BPF_DUMP" LDFLAGS="-L$(TOP)/libpcap $(LDLTO)" \
+-		AR="$(ARCH)-linux-ar cru $(LTOPLUGIN)" \
++	cd tcpdump && autoreconf -fi && ./configure --host=$(ARCH)-linux --enable-shared --enable-ipv6 \
++		--libdir=/lib --disable-static CC="$(CC)" ac_cv_linux_vers=2 ac_cv_ssleay_path=no td_cv_buggygetaddrinfo=no \
++		CPPFLAGS="-I../libpcap $(COPTS) -I$(HOME)/dd-wrt_toolchains/toolchain-arm_cortex-a9_gcc-8.2.0_musl_eabi/include -idirafter /usr/include $(MIPS16_OPT) $(LTO)  -ffunction-sections -fdata-sections -Wl,--gc-sections -D_GNU_SOURCE -DNEED_PRINTF" \
++		CFLAGS="-I../libpcap $(COPTS) $(LTO) $(MIPS16_OPT) -D_GNU_SOURCE -ffunction-sections -fdata-sections -Wl,--gc-sections -DNEED_PRINTF -DHAVE_BPF_DUMP" \
++		LDFLAGS="-L$(TOP)/libpcap -L$(HOME)/dd-wrt_toolchains/toolchain-arm_cortex-a9_gcc-8.2.0_musl_eabi/lib $(LDLTO)" \
++		AR="$(ARCH)-linux-ar cru" \
+ 		RANLIB="$(ARCH)-linux-ranlib $(LTOPLUGIN)"
+ 
+ tcpdump:

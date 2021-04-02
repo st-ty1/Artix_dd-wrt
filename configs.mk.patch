@@ -1,0 +1,323 @@
+--- /home/stephan/dd-wrt/src/router/rules/configs.mk	2021-03-31 23:13:07.940000000 +0200
++++ configs.mk	2021-03-29 23:31:55.432779000 +0200
+@@ -6,7 +6,7 @@
+ obj-$(CONFIG_SHARED) += shared
+ obj-$(CONFIG_LIBNET) += libnet
+ obj-$(CONFIG_IRQBALANCE) += irqbalance
+-obj-$(CONFIG_OPENSSL) += openssl openssl-shared openssl-apps
++obj-$(CONFIG_OPENSSL) += openssl-configure openssl openssl-shared openssl-apps
+ obj-$(CONFIG_MATRIXSSL) += matrixssl
+ obj-$(CONFIG_CTORRENT) += ctorrent
+ obj-$(CONFIG_SFTPSERVER) += sftp-server
+@@ -14,37 +14,37 @@
+ obj-$(CONFIG_IOZONE) += iozone
+ obj-$(CONFIG_SWCONFIG) += libnltiny swconfig
+ obj-$(CONFIG_ATH9K) += libnltiny fft_eval
+-obj-$(CONFIG_RC) += rc services 
++obj-$(CONFIG_RC) += rc json-c-configure json-c services
+ obj-$(CONFIG_LIBBCM) += libbcm
+ obj-$(CONFIG_WWW) += www
+-obj-$(CONFIG_GLIBC) += lib.$(ARCH)$(ARCHEXT)
++#obj-$(CONFIG_GLIBC) += lib.$(ARCH)$(ARCHEXT)
+ obj-$(CONFIG_UCLIBC) += lib.$(ARCH)$(ARCHEXT)
+ obj-$(CONFIG_BRIDGE) += bridge
+-obj-$(CONFIG_RFLOW) += libpcap rflow
+-obj-$(CONFIG_DROPBEAR_SSHD) += dropbear
+-obj-$(CONFIG_DHCPFORWARD) += dhcpforwarder
++obj-$(CONFIG_RFLOW) += libpcap-configure libpcap rflow
++obj-$(CONFIG_DROPBEAR_SSHD) +=  zlib-configure zlib dropbear-configure dropbear
++obj-$(CONFIG_DHCPFORWARD) += dhcpforwarder-configure dhcpforwarder
+ obj-$(CONFIG_BUSYBOX) += busybox
+ #obj-$(CONFIG_TELNET) += telnetd
+-obj-$(CONFIG_DNSSEC)  += zlib pcre gmp nettle
+-obj-$(CONFIG_DNSMASQ) += dnsmasq
+-obj-$(CONFIG_DNSCRYPT) += libsodium dnscrypt
++obj-$(CONFIG_DNSSEC) += zlib pcre gmp-configure gmp nettle-configure nettle
++obj-$(CONFIG_DNSMASQ) += nettle-configure dnsmasq
++obj-$(CONFIG_DNSCRYPT) += libsodium-configure libsodium dnscrypt
+ obj-$(CONFIG_ETHTOOL) += ethtool
+ obj-$(CONFIG_MOXA) += moxa
+ ifeq ($(CONFIG_IPV6),y)
+-obj-$(CONFIG_IPTABLES) += iptables-new
++obj-$(CONFIG_IPTABLES) += iptables-new-clean iptables-new-configure iptables-new
+ else
+-obj-$(CONFIG_IPTABLES) += iptables
++obj-$(CONFIG_IPTABLES) += iptables-clean iptables
+ endif
+ obj-$(CONFIG_LIBIPT) += iptables-ipt
+ obj-$(CONFIG_IPSEC) += ipsec
+ #obj-$(CONFIG_LIBPCAP) += libpcap
+ obj-$(CONFIG_WIVIZ) += wiviz2
+-obj-$(CONFIG_TCPDUMP) += libpcap tcpdump
++obj-$(CONFIG_TCPDUMP) += libpcap tcpdump-configure tcpdump
+ obj-$(CONFIG_KISMETDRONE) += kismet-devel
+ obj-$(CONFIG_NETSTATNAT) += netstatnat
+ obj-$(CONFIG_SES) += ses
+ obj-$(CONFIG_WPA_SUPPLICANT) += wpa_supplicant
+-obj-$(CONFIG_HOSTAPD) += hostapd
++obj-$(CONFIG_HOSTAPD) += hostapd2-configure hostapd
+ obj-$(CONFIG_NETCONF) += netconf
+ obj-$(CONFIG_NTP) += ntpclient
+ obj-$(CONFIG_HTPDATE) += htpdate
+@@ -70,9 +70,9 @@
+ obj-$(CONFIG_PPTPD) += pptpd
+ obj-$(CONFIG_PIPSEC) += pipsec
+ obj-$(CONFIG_FROTTLE) += frottle
+-obj-$(CONFIG_WOL) += wol
++obj-$(CONFIG_WOL) += wol-configure wol
+ ifeq ($(CONFIG_FREERADIUS),y)
+-obj-$(CONFIG_SNMP) += snmp
++obj-$(CONFIG_SNMP) += snmp-configure snmp
+ endif
+ ifeq ($(CONFIG_ASTERISK),y)
+ obj-$(CONFIG_SNMP) += snmp
+@@ -96,18 +96,18 @@
+ obj-$(CONFIG_SNMP) += snmp
+ endif
+ ifeq ($(CONFIG_IPV6),y)
+-obj-$(CONFIG_RADVD) += radvd aiccu
++obj-$(CONFIG_RADVD) += radvd-configure radvd aiccu
+ endif
+ obj-$(CONFIG_L2TPV3TUN) += l2tpv3tun
+-obj-$(CONFIG_SPUTNIK_APD) += sputnik
++obj-$(CONFIG_SPUTNIK_APD) += sputnik-configure sputnik
+ 
+-#obj-$(CONFIG_ADM6996) += adm6996
++obj-$(CONFIG_ADM6996) += adm6996
+ ##################################################################
+ CONFIG_OTHERS=y
+-#obj-$(CONFIG_ADM6996) += adm6996
++obj-$(CONFIG_ADM6996) += adm6996
+ obj-$(CONFIG_L2TP) += xl2tpd
+ 
+-obj-$(CONFIG_CHILLISPOT) += chillispot
++obj-$(CONFIG_CHILLISPOT) += chillispot-configure chillispot
+ obj-$(CONFIG_PARPROUTED) += parprouted
+ obj-$(CONFIG_HEARTBEAT) += bpalogin
+ obj-$(CONFIG_TFTPD) += tftpd
+@@ -121,18 +121,18 @@
+ obj-$(CONFIG_EOU) += eou
+ obj-$(CONFIG_OPENSER) += openser
+ obj-$(CONFIG_MILKFISH) += milkfish
+-obj-$(CONFIG_MC) += libffi zlib glib20 unrar ncurses mc util-linux
+-obj-$(CONFIG_NOCAT) += nocat
++obj-$(CONFIG_MC) += libffi-configure libffi zlib ncurses-configure util-linux-configure util-linux glib20-configure glib20 unrar ncurses mc
++obj-$(CONFIG_NOCAT) += nocat-configure nocat
+ obj-$(CONFIG_POWERTOP) += pciutils ncurses powertop
+-obj-$(CONFIG_RTPPROXY) += rtpproxy
+-obj-$(CONFIG_ZABBIX) += pcre zabbix
++obj-$(CONFIG_RTPPROXY) += rtpproxy-configure rtpproxy
++obj-$(CONFIG_ZABBIX) += pcre zabbix-configure zabbix
+ obj-$(CONFIG_SAMBA) += samba
+ ifneq ($(CONFIG_SAMBA4),y)
+ ifneq ($(CONFIG_SMBD),y)
+ obj-$(CONFIG_SAMBA3) += samba3
+ endif
+ endif
+-obj-$(CONFIG_SMBD) += libnl smbd jansson wsdd2
++obj-$(CONFIG_SMBD) += libnl-configure libnl smbd-configure smbd jansson wsdd2
+ ifneq ($(CONFIG_SMBD),y)
+ obj-$(CONFIG_SAMBA4) += zlib gmp nettle gnutls samba4
+ obj-$(CONFIG_SAMBA3) += jansson
+@@ -140,15 +140,15 @@
+ endif
+ obj-$(CONFIG_MINIDLNA) += jansson
+ ifeq ($(CONFIG_LEGACY_KERNEL),y)
+-obj-$(CONFIG_NTFS3G) += ntfs-3g
++obj-$(CONFIG_NTFS3G) += ntfs-3g-configure ntfs-3g
+ else
+ ifeq ($(CONFIG_NTFS3),y)
+-obj-$(CONFIG_NTFS3G) += ntfs3 ntfs-3g
++obj-$(CONFIG_NTFS3G) += ntfs3 ntfs-3g-configure ntfs-3g
+ else
+-obj-$(CONFIG_NTFS3G) += antfs ntfs-3g
++obj-$(CONFIG_NTFS3G) += antfs ntfs-3g-configure ntfs-3g 
+ endif
+ endif
+-obj-$(CONFIG_SPEEDTEST_CLI) += curl speedtest-cli zlib
++obj-$(CONFIG_SPEEDTEST_CLI) += curl-configure curl speedtest-cli zlib
+ obj-$(CONFIG_RADAUTH) += radauth
+ ifneq ($(CONFIG_FONERA),y)
+ ifneq ($(CONFIG_XSCALE),y)
+@@ -162,10 +162,10 @@
+ obj-$(CONFIG_ZEROIP) += shat
+ #obj-$(CONFIG_KAID) += kaid
+ obj-$(CONFIG_ROBOCFG) += robocfg
+-obj-$(CONFIG_MULTICAST) += igmp-proxy
++obj-$(CONFIG_MULTICAST) += igmp-proxy-configure igmp-proxy
+ obj-$(CONFIG_UDPXY) += udpxy
+ obj-$(CONFIG_SKYTRON) += skytron
+-obj-$(CONFIG_OPENVPN) += lzo openvpn
++obj-$(CONFIG_OPENVPN) += lzo-configure lzo openvpn-configure openvpn
+ obj-$(CONFIG_OLSRD) += olsrd
+ obj-$(CONFIG_BATMANADV) += batman-adv
+ obj-$(CONFIG_FDISK) += fdisk
+@@ -179,10 +179,10 @@
+ endif
+ endif
+ endif
+-obj-$(CONFIG_UTILS) += utils
+-obj-$(CONFIG_MTR) += mtr
++obj-$(CONFIG_UTILS) += utils 
++obj-$(CONFIG_MTR) += mtr-configure mtr
+ obj-$(CONFIG_PCIUTILS) += pciutils
+-obj-$(CONFIG_E2FSPROGS) += lzo e2fsprogs
++obj-$(CONFIG_E2FSPROGS) += lzo e2fsprogs-configure e2fsprogs
+ obj-$(CONFIG_XFSPROGS) += ncurses util-linux xfsprogs 
+ obj-$(CONFIG_BTRFSPROGS) += ncurses util-linux zstd btrfsprogs
+ obj-$(CONFIG_HTTPREDIRECT) += http-redirect
+@@ -198,45 +198,44 @@
+ obj-$(CONFIG_SYSLOG) += syslog
+ obj-$(CONFIG_TELNET) += telnet
+ obj-$(CONFIG_WDSWATCHDOG) += wdswatchdog
+-obj-$(CONFIG_IPV6) += ipv6 dhcpv6
++obj-$(CONFIG_IPV6) += ipv6 dhcpv6-configure dhcpv6
+ obj-$(CONFIG_CONNTRACK) += conntrack
+ obj-$(CONFIG_RADIOOFF) += radiooff
+-obj-$(CONFIG_PHP) += libffi zlib libzip libgd libpng libxml2 libmcrypt curl glib20 sqlite php8 zlib
++obj-$(CONFIG_PHP) += libffi zlib libzip-configure libzip libpng-configure libpng minidlna libgd-configure libgd libxml2-configure libxml2 libmcrypt-configure libmcrypt curl glib20 sqlite-configure sqlite php8-configure php8
+ obj-$(CONFIG_NCURSES) += ncurses
+ obj-$(CONFIG_IFTOP) += libpcap iftop
+ obj-$(CONFIG_IPTRAF) += iptraf
+-obj-$(CONFIG_WIFIDOG) += wifidog
++obj-$(CONFIG_WIFIDOG) +=  wifidog-configure wifidog
+ obj-$(CONFIG_HWMON) += hwmon
+ #obj-$(CONFIG_RSTATS) += rstats
+ obj-$(CONFIG_STABRIDGE) += stabridge
+ obj-$(CONFIG_EOP_TUNNEL) += eop-tunnel
+-obj-$(CONFIG_AIRCRACK) += libnltiny aircrack-ng pcre zlib
++obj-$(CONFIG_AIRCRACK) += libnltiny pcre zlib aircrack-ng-configure aircrack-ng
+ obj-$(CONFIG_MOXA) += moxa
+ obj-$(CONFIG_BONDING) += ifenslave
+ obj-$(CONFIG_NSTX) += nstx
+ obj-$(CONFIG_SQUID) += squid
+-obj-$(CONFIG_IPERF) += iperf
++obj-$(CONFIG_IPERF) += iperf-configure iperf
+ obj-$(CONFIG_NTPD) += ntpd
+ obj-$(CONFIG_CHRONY) += chrony
+ obj-$(CONFIG_GPSD) += ncurses gpsd
+ obj-$(CONFIG_PHP5) += libffi zlib glib20 php8
+-obj-$(CONFIG_FREERADIUS) += libpcap libtalloc freeradius3
+-#obj-$(CONFIG_FREERADIUS3) += talloc freeradius3
++obj-$(CONFIG_FREERADIUS) += libpcap libtalloc-configure libtalloc freeradius3-configure freeradius3
++obj-$(CONFIG_FREERADIUS3) += talloc freeradius
+ #obj-$(CONFIG_EAD) += ead
+-
+ obj-$(CONFIG_SCDP) += scdp
+ obj-$(CONFIG_SES) += ses
+ obj-$(CONFIG_PRINTER_SERVER) += ippd
+-obj-$(CONFIG_FTP) += proftpd jansson
++obj-$(CONFIG_FTP) += proftpd-configure proftpd jansson
+ obj-$(CONFIG_PCMCIA) += pcmcia 
+ obj-$(CONFIG_PCMCIA) += microcom
+ obj-$(CONFIG_PCMCIA) += gcom
+ obj-$(CONFIG_PCMCIA) += nvtlstatus 
+ obj-$(CONFIG_PCMCIA) += setserial
+-obj-$(CONFIG_COMGT) += comgt
++obj-$(CONFIG_COMGT) += comgt-configure comgt
+ obj-$(CONFIG_MEDIASERVER) += mediaserver
+ obj-$(CONFIG_FRR) += libcares ncurses pcre libyang readline zlib json-c frr libcap
+-obj-$(CONFIG_QUAGGA) += ncurses readline zlib quagga
++obj-$(CONFIG_QUAGGA) += ncurses readline-configure readline quagga-configure quagga
+ obj-$(CONFIG_VPNC) += vpnc
+ obj-$(CONFIG_STUCK) += stuck_beacon
+ obj-$(CONFIG_GPSI) += gpsi
+@@ -255,7 +254,7 @@
+ obj-$(CONFIG_HOSTAPD2) += hostapd2
+ obj-$(CONFIG_WPA_SUPPLICANT2) += wpa_supplicant2
+ obj-$(CONFIG_MIITOOL) += net-tools
+-obj-$(CONFIG_TOR) += xz zstd zlib openssl libevent tor
++obj-$(CONFIG_TOR) += xz-configure xz zstd zlib openssl libevent-configure libevent tor-configure tor
+ obj-$(CONFIG_RSTP) += rstp
+ obj-$(CONFIG_OPENLLDP) += openlldp
+ obj-$(CONFIG_WGETS) += wgets
+@@ -264,11 +263,11 @@
+ ifeq ($(CONFIG_X86),y)
+ obj-$(CONFIG_USB_ADVANCED) += sdparm
+ endif
+-obj-$(CONFIG_ASTERISK) += editline zlib ncurses util-linux jansson asterisk
++obj-$(CONFIG_ASTERISK) += editline-configure editline zlib ncurses util-linux jansson asterisk-configure asterisk
+ obj-$(CONFIG_ZAPTEL) += zaptel
+ obj-$(CONFIG_WAVESAT) += wavesat
+ obj-$(CONFIG_RT2860APD) += rt2860apd apsta_client
+-obj-$(CONFIG_POUND) += pound
++obj-$(CONFIG_POUND) += pound-configure pound
+ obj-$(CONFIG_VNCREPEATER) += vncrepeater
+ obj-$(CONFIG_NPROBE) += nprobe
+ obj-$(CONFIG_MTR) += mtr
+@@ -292,53 +291,53 @@
+ obj-$(CONFIG_PICOCOM) += picocom
+ obj-$(CONFIG_OPENDPI) += ndpi-netfilter
+ obj-$(CONFIG_LLTD) += lltd
+-obj-$(CONFIG_USBIP) += ncurses util-linux libudev usbip
++obj-$(CONFIG_USBIP) += ncurses util-linux libudev-configure libudev usbip-configure usbip
+ #obj-$(CONFIG_XTA) += xtables-addons
+-obj-$(CONFIG_SNORT) += libpcap xz libnfnetlink libnetfilter_queue libdnet daq pcre snort
++obj-$(CONFIG_SNORT) += libpcap xz libnfnetlink-configure libnfnetlink libnetfilter_queue-configure libnetfilter_queue libdnet-configure libdnet daq-configure daq pcre snort-configure snort
+ obj-$(CONFIG_LAGUNA) += gsp_updater
+ obj-$(CONFIG_VENTANA) += gsp_updater
+ obj-$(CONFIG_NEWPORT) += gsp_updater
+ obj-$(CONFIG_POLARSSL) += polarssl
+ #obj-$(CONFIG_UHTTPD) += cyassl uhttpd pcre lighttpd
+-obj-$(CONFIG_MSTP) += mstp
++obj-$(CONFIG_MSTP) += mstp-configure mstp
+ obj-$(CONFIG_PYTHON) += zlib libffi python
+ obj-$(CONFIG_NMAP) += libpcap nmap
+ obj-$(CONFIG_ARPALERT) += arpalert
+-obj-$(CONFIG_IPETH) += ipeth
++obj-$(CONFIG_IPETH) += ipeth-configure ipeth
+ obj-$(CONFIG_IAS) += dns_responder
+-obj-$(CONFIG_MINIDLNA) += minidlna zlib
++obj-$(CONFIG_MINIDLNA) += zlib minidlna
+ obj-$(CONFIG_NRPE) += nrpe
+ obj-$(CONFIG_LINKS) += links
+ obj-$(CONFIG_SOFTFLOWD) += softflowd
+-obj-$(CONFIG_LIGHTTPD) += pcre lighttpd
++obj-$(CONFIG_LIGHTTPD) += pcre lighttpd-configure lighttpd
+ obj-$(CONFIG_NEXTMEDIAEXTRA) += nextmediaextra
+ obj-$(CONFIG_LIBQMI) += libffi zlib glib20 libqmi
+-obj-$(CONFIG_UQMI) += json-c libubox uqmi
++obj-$(CONFIG_UQMI) += json-c libubox uqmi-configure uqmi
+ obj-$(CONFIG_LIBMBIM) += zlib libffi glib20 libmbim
+ obj-$(CONFIG_MTDUTILS) += mtd-utils
+ obj-$(CONFIG_UBIUTILS) += ubi-utils zlib lzo zstd
+ obj-$(CONFIG_STRONGSWAN) += gmp strongswan sqlite
+-obj-$(CONFIG_PRIVOXY) += zlib pcre privoxy
++obj-$(CONFIG_PRIVOXY) += zlib pcre privoxy-configure privoxy
+ obj-$(CONFIG_VENTANA) += kobs-ng
+ obj-$(CONFIG_WEBSERVER) += libffi zlib libzip openssl glib20 libxml2 libmcrypt lighttpd curl libpng sqlite php8 util-linux
+-obj-$(CONFIG_TRANSMISSION) += libevent curl transmission zlib
++obj-$(CONFIG_TRANSMISSION) += libevent curl-configure curl transmission-configure transmission zlib
+ obj-$(CONFIG_CLOUD4WI) += curl zlib
+ obj-$(CONFIG_UNIWIP) += uniwip_gpio
+ obj-$(CONFIG_MACTELNET) += mactelnet
+ obj-$(CONFIG_FIRMWARES) += firmwares
+ obj-$(CONFIG_SERVICEGATE) += servicegate
+-obj-$(CONFIG_UNBOUND) += unbound
++obj-$(CONFIG_UNBOUND) += unbound-configure unbound
+ obj-$(CONFIG_JAVA) += java
+-obj-$(CONFIG_SOFTETHER) += readline softether
++obj-$(CONFIG_SOFTETHER) += readline softether-configure softether
+ obj-$(CONFIG_ALPINE) += qca-ssdk qca-ssdk-shell
+ obj-$(CONFIG_ETHTOOL) += ethtool
+ obj-$(CONFIG_ANCHORFREE) += zlib jansson libevent-af hydra
+ obj-$(CONFIG_F2FS) += f2fs-tools
+ obj-$(CONFIG_MTDUTILS) += mtd-utils
+ obj-$(CONFIG_LSOF) += lsof
+-obj-$(CONFIG_LIBMNL) += libmnl
+-obj-$(CONFIG_WIREGUARD) += libmnl wireguard qrencode
+-obj-$(CONFIG_EXFAT) += exfat-utils
++obj-$(CONFIG_LIBMNL) += libmnl-configure libmnl
++obj-$(CONFIG_WIREGUARD) += libmnl-configure libmnl wireguard qrencode-configure qrencode
++obj-$(CONFIG_EXFAT) += exfat-utils-configure exfat-utils
+ obj-$(CONFIG_DOSFSTOOLS) += dosfstools
+ obj-$(CONFIG_FLASHROM) += flashrom
+ obj-$(CONFIG_SMARTMONTOOLS) += smartmontools
+@@ -372,7 +371,6 @@
+ obj-$(CONFIG_NGINX) += pcre openssl zlib nginx
+ obj-$(CONFIG_X86) += yukon bootconfig lmsensors
+ obj-$(CONFIG_MRP) += mrp
+-obj-$(CONFIG_CFM) += cfm
+ obj-$(CONFIG_HTOP) += ncurses libnl htop
+ obj-$(CONFIG_IPSET) += libmnl ipset
+ obj-$(CONFIG_OCTEON) += lmsensors

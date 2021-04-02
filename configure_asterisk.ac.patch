@@ -1,0 +1,11 @@
+--- /home/stephan/dd-wrt/src/router/asterisk/configure.ac	2021-03-31 23:13:07.850000000 +0200
++++ configure_asterisk.ac	2021-03-05 19:27:20.773260400 +0100
+@@ -2866,7 +2866,7 @@
+ AC_SUBST([PBX_SYSTEMD])
+ AC_SUBST([SYSTEMD_LIB])
+ AC_SUBST([SYSTEMD_INCLUDE])
+-AST_PKG_CONFIG_CHECK([SYSTEMD], [libsystemd])
++#AST_PKG_CONFIG_CHECK([SYSTEMD], [libsystemd])
+ 
+ PBX_SYSLOG=0
+ 

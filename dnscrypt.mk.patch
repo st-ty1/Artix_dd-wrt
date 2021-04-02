@@ -1,0 +1,23 @@
+--- /home/stephan/dd-wrt/src/router/rules/dnscrypt.mk	2021-03-31 23:13:07.940000000 +0200
++++ dnscrypt.mk	2021-03-25 09:53:13.101994200 +0100
+@@ -17,8 +17,10 @@
+ 	AR_FLAGS="cru $(LTOPLUGIN)" \
+ 	RANLIB="$(ARCH)-linux-ranlib $(LTOPLUGIN)"
+ 	make -C libsodium clean
+-	make -C libsodium
+ 
++libsodium-install:
++	install -d $(INSTALLDIR)/libsodium/usr/lib
++	install -D libsodium/src/libsodium/.libs/libsodium.so $(INSTALLDIR)/libsodium/usr/lib/libsodium.so
+ 
+ DNSCRYPT_CONFIGURE_ARGS+= \
+ 	--disable-documentation \
+@@ -35,7 +37,7 @@
+ 	AR_FLAGS="cru $(LTOPLUGIN)" \
+ 	RANLIB="$(ARCH)-linux-ranlib $(LTOPLUGIN)"
+ 
+-dnscrypt: libsodium zlib
++dnscrypt: libsodium zlib dnscrypt-configure
+ 	make -C dnscrypt/libltdl
+ 	make -C dnscrypt 
+ 

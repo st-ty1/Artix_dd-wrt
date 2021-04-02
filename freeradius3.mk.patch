@@ -1,0 +1,17 @@
+--- /home/stephan/dd-wrt/src/router/rules/freeradius3.mk	2021-03-31 23:13:07.940000000 +0200
++++ freeradius3.mk	2021-03-05 19:27:20.773260400 +0100
+@@ -1,4 +1,4 @@
+-freeradius3-configure: libtalloc openssl libpcap
++freeradius3-configure: 
+ 	cd freeradius3 && mkdir -p build/make; gcc scripts/jlibtool.c -o build/make/jlibtool
+ 	cd freeradius3 && autoconf && \
+ 	sys_lib_dlsearch_path_spec="$(ARCH)-uclibc" \
+@@ -159,7 +159,7 @@
+ 	sed -i 's/-isystem \/usr\/include/ /g' $(TOP)/freeradius3/Make.inc
+ 
+ 
+-freeradius3: libtalloc libpcap
++freeradius3: 
+ 	cd freeradius3 && mkdir -p build/make; gcc scripts/jlibtool.c -o build/make/jlibtool
+ 	make -C freeradius3 R="$(INSTALLDIR)/freeradius3" INSTALLSTRIP="" all
+ 

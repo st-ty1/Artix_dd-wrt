@@ -1,0 +1,41 @@
+--- /home/stephan/dd-wrt/src/router/common.mk	2021-03-31 23:13:07.850000000 +0200
++++ common.mk	2021-03-29 18:32:48.332779000 +0200
+@@ -1,7 +1,7 @@
+-export LTO := -flto -fwhole-program
+-export LTOMIN := -flto
+-export LDLTO := -flto=jobserver -fuse-linker-plugin
+-export LTOPLUGIN := --plugin=$(shell $(CROSS_COMPILE)gcc --print-file-name=liblto_plugin.so)
++export LTO := 
++export LTOMIN := 
++export LDLTO := 
++export LTOPLUGIN := 
+ 
+ 
+ ifeq ($(ARCH),arm)
+@@ -207,17 +207,17 @@
+ 		--target $(ARCH)-linux-uclibc \
+ 		`cat /tmp/$(ARCHITECTURE)/mklibs-progs` 2>&1
+ else
+-	mklibs.py -D \
+-		-d /tmp/$(ARCHITECTURE)/mklibs-out \
+-		--sysroot $(TARGETDIR) \
+-		-L /lib \
+-		-L /usr/lib \
+-		--ldlib /lib/$(MUSL_LD) \
+-		--target $(ARCH)-linux-uclibc \
+-		`cat /tmp/$(ARCHITECTURE)/mklibs-progs` 2>&1
++#	mklibs.py -D \
++#		-d /tmp/$(ARCHITECTURE)/mklibs-out \
++#		--sysroot $(TARGETDIR) \
++#		-L /lib \
++#		-L /usr/lib \
++#		--ldlib /lib/$(MUSL_LD) \
++#		--target $(ARCH)-linux-uclibc \
++#		`cat /tmp/$(ARCHITECTURE)/mklibs-progs` 2>&1
+ 
+ endif
+-	cp /tmp/$(ARCHITECTURE)/mklibs-out/* $(TARGETDIR)/lib
++#	cp /tmp/$(ARCHITECTURE)/mklibs-out/* $(TARGETDIR)/lib
+ endif
+ 	../../tools/optimize_lib.sh libutils/ libutils.so libutils.a libutils_min.so $(TARGETDIR) $(TARGETDIR)/usr/lib/libutils.so  $(TOP)/libutils/libutils_ld
+ 	../../tools/optimize_lib.sh libutils/ libwireless.so libwireless.a libwireless_min.so $(TARGETDIR) $(TARGETDIR)/usr/lib/libwireless.so $(TOP)/libutils/libwireless_ld

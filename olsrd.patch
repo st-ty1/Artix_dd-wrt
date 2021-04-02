@@ -1,0 +1,17 @@
+--- a/src/cfgparser/local.mk	2021-03-08 17:43:56.217409800 +0100
++++ b/src/cfgparser/local.mk	2021-03-08 17:30:46.787409800 +0100
+@@ -74,12 +74,8 @@
+ ifeq ($(VERBOSE),0)
+ 	@echo "[BISON] $@"
+ endif
+-	$(MAKECMDPREFIX)$(BISON) -d -o "$@-tmp" "$<"
+-	$(MAKECMDPREFIX)sed	-e 's/register //' \
+-		-e '/^#line/s/$(call quote,$@-tmp)/$(call quote,$@)/' \
+-		< "$@-tmp" >"$@"
+-	$(MAKECMDPREFIX)mv "$(subst .c,.h,$@-tmp)" "$(subst .c,.h,$@)"
+-	$(MAKECMDPREFIX)$(RM) "$@-tmp" "$(subst .c,.h,$@-tmp)"
++	$(MAKECMDPREFIX)$(BISON) -d -o "$@" "$<"
++	$(MAKECMDPREFIX)sed -e 's/register //' "$@" > "$@.o" && mv "$@.o" "$@"
+ 
+ $(C)oparse.o: CFLAGS := $(filter-out -Wunreachable-code,$(CFLAGS))
+ 

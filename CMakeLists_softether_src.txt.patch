@@ -1,0 +1,11 @@
+--- /home/stephan/dd-wrt/src/router/softether/src/CMakeLists.txt	2021-03-31 23:13:07.980000000 +0200
++++ CMakeLists_softether_src.txt	2021-03-21 18:10:33.300000000 +0100
+@@ -117,7 +117,7 @@
+ # hamcore.se2 archive file
+ add_custom_target(hamcore-archive-build
+   ALL
+-  COMMAND hamcorebuilder "${TOP_DIRECTORY}/src/bin/hamcore/" "${BUILD_DIRECTORY}/hamcore.se2"
++  COMMAND ${TOP_DIRECTORY}/host/tmp/hamcorebuilder "${TOP_DIRECTORY}/src/bin/hamcore/" "${BUILD_DIRECTORY}/hamcore.se2"
+   DEPENDS hamcorebuilder
+   COMMENT "Building hamcore.se2 archive file..."
+   VERBATIM

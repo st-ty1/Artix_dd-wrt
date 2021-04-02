@@ -1,0 +1,29 @@
+--- /home/stephan/dd-wrt/src/router/rules/php8.mk	2021-03-31 23:13:07.950000000 +0200
++++ php8.mk	2021-03-05 19:27:20.783260400 +0100
+@@ -1,7 +1,7 @@
+ icu-configure:
+ 	-make -C icu clean
+ 	rm -f icu/config.cache
+-	rm -rf icu/autom4te.cach
++	rm -rf icu/autom4te.cache
+ 	cd icu && autoconf
+ 	cd icu &&  ./runConfigureICU Linux/gcc CFLAGS= CXXFLAGS= \
+ 	--disable-debug \
+@@ -88,7 +88,7 @@
+ 	-cp -fpR $(TOP)/icu/target_staging/lib/*.so* $(INSTALLDIR)/icu/usr/lib/
+ 
+ 
+-php8: libxml2 libmcrypt glib20 zlib libzip openssl sqlite
++php8: 
+ 	CC="ccache $(ARCH)-linux-uclibc-gcc" \
+ 	PROF_FLAGS="$(COPTS)  $(MIPS16_OPT) -DNEED_PRINTF -ffunction-sections -fdata-sections -Wl,--gc-sections" \
+ 	CFLAGS="$(COPTS) $(MIPS16_OPT)   -I$(TOP)/libpng -I$(TOP)/libxml2/include -I$(TOP)/curl/include -I$(TOP)/zlib/include -I$(TOP)/openssl/include -I$(TOP)/libzip -I$(TOP)/libzip/lib -ffunction-sections -fdata-sections -Wl,--gc-sections" \
+@@ -208,7 +208,7 @@
+ endif
+ 
+ 	
+-php8-configure: libpng libgd libxml2 zlib curl glib20 libzip openssl sqlite
++php8-configure:
+ 	rm -f php8/config.cache
+ 	rm -rf php8/autom4te.cach
+ 	cd php8 && touch configure.ac && autoconf
