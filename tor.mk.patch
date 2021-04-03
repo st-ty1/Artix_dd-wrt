@@ -1,5 +1,5 @@
---- /home/stephan/dd-wrt/src/router/rules/tor.mk	2021-03-31 23:13:07.950000000 +0200
-+++ tor.mk	2021-03-05 19:27:20.783260400 +0100
+--- tor.mk.orig	2021-04-03 14:09:30.840000000 +0200
++++ tor.mk	2021-04-03 14:16:09.760000000 +0200
 @@ -5,7 +5,7 @@
  	make -C miniupnpc clean
  
@@ -16,9 +16,9 @@
 -tor-configure: openssl xz zstd libevent zlib
 +tor-configure:
  	cd tor && libtoolize -ci --force 
- 	cd tor && autoreconf -fi 
- 	cd tor && ./configure  --prefix=/usr ac_cv_host=$(ARCH)-uclibc-linux --target=$(ARCH)-linux --disable-systemd --host=$(ARCH) CC="ccache $(ARCH)-linux-uclibc-gcc" \
-@@ -33,7 +33,7 @@
+ 	cd tor && aclocal
+ 	cd tor && automake --add-missing
+@@ -35,7 +35,7 @@
  	ZSTD_CFLAGS="-I$(TOP)/zstd/lib" \
  	ZSTD_LIBS="-I$(TOP)/zstd/lib -lzstd"
  

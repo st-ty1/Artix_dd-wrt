@@ -1,5 +1,5 @@
---- /home/stephan/dd-wrt/src/router/rules/mc.mk	2021-03-31 23:13:07.940000000 +0200
-+++ mc.mk	2021-03-05 19:27:20.783260400 +0100
+--- mc.mk.orig	2021-04-03 14:09:30.840000000 +0200
++++ mc.mk	2021-04-03 14:16:09.740000000 +0200
 @@ -7,22 +7,7 @@
  #export GLIB_CONFIG=$(TOP)/glib-1.2.10-install/bin/glib-config
  export GLIB_CFLAGS=-I$(TOP)/glib20/libglib/glib
@@ -23,7 +23,7 @@
 +mc-configure: 
  	cd mc && autoreconf -fi
  	cd mc && ./configure --host=$(ARCH)-uclibc-linux AWK="awk" \
- 		CFLAGS="$(COPTS)  $(MIPS16_OPT) -DNEED_PRINTF -DSTAT_STATVFS -fcommon -I$(TOP)/glib20/gettext" \
+ 		CFLAGS="$(COPTS) $(MIPS16_OPT) -DNEED_PRINTF -DSTAT_STATVFS -fcommon -I$(TOP)/glib20/gettext" \
 @@ -60,53 +45,7 @@
  #	--with-glib-prefix="$(TOP)/mc/glib" \
  

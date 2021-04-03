@@ -1,0 +1,17 @@
+--- libgd.mk.orig	2021-03-28 19:42:00.820000000 +0200
++++ libgd.mk	2021-03-05 19:27:20.773260400 +0100
+@@ -1,4 +1,4 @@
+-libgd: libpng minidlna zlib
++libgd: minidlna
+ 	CC="ccache $(ARCH)-linux-uclibc-gcc" \
+ 	CFLAGS="$(COPTS) $(MIPS16_OPT)   -I$(TOP)/minidlna/jpeg-8 -ffunction-sections -fdata-sections -Wl,--gc-sections" \
+ 	CPPFLAGS="$(COPTS) $(MIPS16_OPT) -I$(TOP)/minidlna/jpeg-8 -ffunction-sections -fdata-sections -Wl,--gc-sections" \
+@@ -8,7 +8,7 @@
+ libgd-clean:
+ 	make -C libgd clean
+ 	
+-libgd-configure: libpng zlib
++libgd-configure: minidlna
+ 	cd libgd && autoreconf -fi && ./configure --host=$(ARCH)-linux-uclibc  \
+ 	--with-jpeg=$(TOP)/minidlna/jpeg-8 \
+ 	--without-xpm \

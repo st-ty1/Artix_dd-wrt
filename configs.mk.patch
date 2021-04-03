@@ -1,11 +1,11 @@
---- /home/stephan/dd-wrt/src/router/rules/configs.mk	2021-03-31 23:13:07.940000000 +0200
-+++ configs.mk	2021-03-29 23:31:55.432779000 +0200
+--- configs.mk.orig	2021-04-03 14:09:30.830000000 +0200
++++ configs.mk	2021-04-03 16:22:22.770000000 +0200
 @@ -6,7 +6,7 @@
  obj-$(CONFIG_SHARED) += shared
  obj-$(CONFIG_LIBNET) += libnet
  obj-$(CONFIG_IRQBALANCE) += irqbalance
--obj-$(CONFIG_OPENSSL) += openssl openssl-shared openssl-apps
-+obj-$(CONFIG_OPENSSL) += openssl-configure openssl openssl-shared openssl-apps
+-obj-$(CONFIG_OPENSSL) += libucontext openssl openssl-shared openssl-apps
++obj-$(CONFIG_OPENSSL) += libucontext openssl-configure openssl openssl-shared openssl-apps
  obj-$(CONFIG_MATRIXSSL) += matrixssl
  obj-$(CONFIG_CTORRENT) += ctorrent
  obj-$(CONFIG_SFTPSERVER) += sftp-server
@@ -226,8 +226,8 @@
  obj-$(CONFIG_HOSTAPD2) += hostapd2
  obj-$(CONFIG_WPA_SUPPLICANT2) += wpa_supplicant2
  obj-$(CONFIG_MIITOOL) += net-tools
--obj-$(CONFIG_TOR) += xz zstd zlib openssl libevent tor
-+obj-$(CONFIG_TOR) += xz-configure xz zstd zlib openssl libevent-configure libevent tor-configure tor
+-obj-$(CONFIG_TOR) += xz zstd zlib libucontext openssl libevent tor
++obj-$(CONFIG_TOR) += xz-configure xz zstd zlib libucontext openssl libevent-configure libevent tor-configure tor
  obj-$(CONFIG_RSTP) += rstp
  obj-$(CONFIG_OPENLLDP) += openlldp
  obj-$(CONFIG_WGETS) += wgets
@@ -285,7 +285,7 @@
 -obj-$(CONFIG_PRIVOXY) += zlib pcre privoxy
 +obj-$(CONFIG_PRIVOXY) += zlib pcre privoxy-configure privoxy
  obj-$(CONFIG_VENTANA) += kobs-ng
- obj-$(CONFIG_WEBSERVER) += libffi zlib libzip openssl glib20 libxml2 libmcrypt lighttpd curl libpng sqlite php8 util-linux
+ obj-$(CONFIG_WEBSERVER) += libffi zlib libzip libucontext openssl glib20 libxml2 libmcrypt lighttpd curl libpng sqlite php8 util-linux
 -obj-$(CONFIG_TRANSMISSION) += libevent curl transmission zlib
 +obj-$(CONFIG_TRANSMISSION) += libevent curl-configure curl transmission-configure transmission zlib
  obj-$(CONFIG_CLOUD4WI) += curl zlib
@@ -314,7 +314,7 @@
  obj-$(CONFIG_FLASHROM) += flashrom
  obj-$(CONFIG_SMARTMONTOOLS) += smartmontools
 @@ -372,7 +371,6 @@
- obj-$(CONFIG_NGINX) += pcre openssl zlib nginx
+ obj-$(CONFIG_NGINX) += pcre libucontext openssl zlib nginx
  obj-$(CONFIG_X86) += yukon bootconfig lmsensors
  obj-$(CONFIG_MRP) += mrp
 -obj-$(CONFIG_CFM) += cfm
