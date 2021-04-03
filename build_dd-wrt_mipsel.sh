@@ -63,7 +63,7 @@ patch -i $DDWRT_PATCHES_DIR/util-linux.mk.patch $DDWRT_REPO_DIR/src/router/rules
 patch -i $DDWRT_PATCHES_DIR/igmp-proxy.mk.patch $DDWRT_REPO_DIR/src/router/rules/igmp-proxy.mk
 patch -i $DDWRT_PATCHES_DIR/chillispot.mk.patch $DDWRT_REPO_DIR/src/router/rules/chillispot.mk
 patch -i $DDWRT_PATCHES_DIR/libevent.mk.patch $DDWRT_REPO_DIR/src/router/rules/libevent.mk
-patch -i $DDWRT_PATCHES_DIR/glib.mk.patch $DDWRT_REPO_DIR/src/router/rules/glib.mk
+#patch -i $DDWRT_PATCHES_DIR/glib.mk.patch $DDWRT_REPO_DIR/src/router/rules/glib.mk
 patch -i $DDWRT_PATCHES_DIR/tcpdump.mk.patch $DDWRT_REPO_DIR/src/router/rules/tcpdump.mk
 patch -i $DDWRT_PATCHES_DIR/sqlite.mk.patch $DDWRT_REPO_DIR/src/router/rules/sqlite.mk
 patch -i $DDWRT_PATCHES_DIR/php8.mk.patch $DDWRT_REPO_DIR/src/router/rules/php8.mk
