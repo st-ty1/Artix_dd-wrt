@@ -17,9 +17,9 @@ WARNING: Don't start, if you are not familiar with both - Arch Linux/Artix and t
    - Copy or clone this repo into a first subfolder of your home directory. 
    - Download dd-wrt toolchains from https://download1.dd-wrt.com/dd-wrtv2/downloads/toolchains/toolchains.tar.xz and install it into a second subfolder of your home directory.
    - Download source code of daq-2.0.6 from https://www.snort.org/downloads/archive/snort/daq-2.0.6.tar.gz and install it into a third subfolder of your home directory
-   - Make the shell script executable you need for your router model (depending on architecture of CPU of router) .
+   - Make one of the two shell scripts (build_dd-wrt_arm.sh/build_dd-wrt_mipsel.sh) executable you need for your router model (depending on architecture of CPU of router) .
    - Please have a look into the shell script, as the path to your local dd-wrt repo is defined in DDWRT_REPO_DIR and the path to your local copy/repo of Artix_dd-wrt is defined in DDWRT_PATCHES_DIR. You should change them to your own needs.
-   - Start the shell script. 
+   - Start the shell script (build_dd-wrt_arm.sh/build_dd-wrt_mipsel.sh). 
 
 BR
 
