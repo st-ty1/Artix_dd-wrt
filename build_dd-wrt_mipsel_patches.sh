@@ -24,11 +24,8 @@ ln -s $HOME/dd-wrt_toolchains/toolchain-mipsel_74kc_gcc-8.2.0_musl $DDWRT_REPO_D
 rm -f $DDWRT_REPO_DIR/src/router/minidlna/ffmpeg-3.1/config.mak          #runter zu minidlna
 rm -rf $DDWRT_REPO_DIR/src/router/libmcrypt/autom4te
 
-# correct Makefiles und config-files for mipsel-architecture; but patched! 
-# (Kompilierreihenfolge bei all: kernel vor obj-y, da einige sources Kernelmodule bauen
 patch -i $DDWRT_PATCHES_DIR/Makefile.brcm3x.patch $DDWRT_REPO_DIR/src/router/Makefile.brcm3x
 cp -vf $DDWRT_REPO_DIR/src/router/Makefile.brcm3x $DDWRT_REPO_DIR/src/router/Makefile 
-#cp -vf $DDWRT_PATCHES_DIR/Makefile.brcm3x $DDWRT_REPO_DIR/src/router/Makefile
 
 cp -vf $DDWRT_REPO_DIR/src/router/configs/broadcom_K3x/.config_ac $DDWRT_REPO_DIR/src/router/.config
 
@@ -37,8 +34,6 @@ cp -vf $DDWRT_REPO_DIR/src/linux/universal/linux-4.4/.config_std $DDWRT_REPO_DIR
 # src/router/config dir has to be patched for gcc-10
 patch -p1 -d $DDWRT_REPO_DIR/src/router/config < $DDWRT_PATCHES_DIR/config_gcc10.patch
 
-## zusätzlich viele configure-targets erforderlich
-## ## mips: smbd und ntfs muss nach Kernel kompiliert werden
 patch -i $DDWRT_PATCHES_DIR/configs.mk.patch $DDWRT_REPO_DIR/src/router/rules/configs.mk
 
 ## wrong flag for AR of toolchain
@@ -50,14 +45,13 @@ mv -vf $DDWRT_REPO_DIR/src/router/sputnik/Makefile $DDWRT_REPO_DIR/src/router/sp
 ## Comment out Ralink drivers not used by mipsel-router
 patch -i $DDWRT_PATCHES_DIR/Kconfig.patch $DDWRT_REPO_DIR/src/linux/universal/linux-4.4/drivers/net/wireless/Kconfig
 
-# integration von configure in .mk-file, da Aufruf über Makefilefile.northstar
-# plus jansson-configure
+# jansson-configure added
 patch -i $DDWRT_PATCHES_DIR/jansson.mk.patch $DDWRT_REPO_DIR/src/router/rules/jansson.mk
 ##several code changed
 patch -i $DDWRT_PATCHES_DIR/ntfs-3g.mk.patch $DDWRT_REPO_DIR/src/router/rules/ntfs-3g.mk
 
 ## amended .mk-files with wrong target-machine-triplet, wrong autoconf-version (-autoreconf) ...
-## json -json-c
+## json to json-c
 patch -i $DDWRT_PATCHES_DIR/libubox.mk.patch $DDWRT_REPO_DIR/src/router/rules/libubox.mk
 ##several code changed
 patch -i $DDWRT_PATCHES_DIR/emf.mk.patch $DDWRT_REPO_DIR/src/router/rules/emf.mk
@@ -93,7 +87,7 @@ patch -i $DDWRT_PATCHES_DIR/uqmi.mk.patch $DDWRT_REPO_DIR/src/router/rules/uqmi.
 patch -i $DDWRT_PATCHES_DIR/privoxy.mk.patch $DDWRT_REPO_DIR/src/router/rules/privoxy.mk
 patch -i $DDWRT_PATCHES_DIR/json-c.mk.patch $DDWRT_REPO_DIR/src/router/rules/json-c.mk
 
-#leerzeichen fehlt 
+#whitespace missing 
 patch -i $DDWRT_PATCHES_DIR/pptpd.mk.patch $DDWRT_REPO_DIR/src/router/rules/pptpd.mk
 
 patch -i $DDWRT_PATCHES_DIR/configure_asterisk.ac.patch $DDWRT_REPO_DIR/src/router/asterisk/configure.ac
@@ -113,15 +107,16 @@ cp -vf $DDWRT_PATCHES_DIR/revision.h $DDWRT_REPO_DIR/src/router/rc
 # missing folder in sources
 mkdir $DDWRT_REPO_DIR/src/router/kromo/dd-wrt/style
 
-#  3com-Fehler ; arm: bei build_ddwrt-arm.sh wird nur Makefile.mak kopiert -falsch, da nur Makefile genutzt wird
+# "3com" error
 patch -i $DDWRT_PATCHES_DIR/Makefile_kromo.patch $DDWRT_REPO_DIR/src/router/kromo/dd-wrt/Makefile
 
-# div. Änderungen
+# div. changes
 patch -i $DDWRT_PATCHES_DIR/Makefile_minidlna.patch $DDWRT_REPO_DIR/src/router/minidlna/Makefile
 patch -i $DDWRT_PATCHES_DIR/Makefile_minidlna_minidlna.patch $DDWRT_REPO_DIR/src/router/minidlna/minidlna/Makefile
 patch -i $DDWRT_PATCHES_DIR/Makefile_hostapd2.patch $DDWRT_REPO_DIR/src/router/hostapd2/hostapd/Makefile
 patch -i $DDWRT_PATCHES_DIR/Makefile_mactelnet.patch $DDWRT_REPO_DIR/src/router/mactelnet/Makefile
 patch -i $DDWRT_PATCHES_DIR/Makefile_rc.patch $DDWRT_REPO_DIR/src/router/rc/Makefile
+
 # patches because of newer gawk
 patch -p1 -d $DDWRT_REPO_DIR/src/router/vpnc/libgpg-error < $DDWRT_PATCHES_DIR/libgpg-error.patch
 patch -p1 -d $DDWRT_REPO_DIR/src/router/olsrd < $DDWRT_PATCHES_DIR/olsrd.patch 
