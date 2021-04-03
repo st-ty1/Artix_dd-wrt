@@ -21,6 +21,9 @@ WARNING: Don't start, if you are not familiar with both - Arch Linux/Artix and t
    - Please have a look into the shell script, as the path to your local dd-wrt repo is defined in DDWRT_REPO_DIR and the path to your local copy/repo of Artix_dd-wrt is defined in DDWRT_PATCHES_DIR. You should change them to your own needs.
    - Start the shell script (build_dd-wrt_arm.sh/build_dd-wrt_mipsel.sh). 
 
+(Still have some trouble with "trx_asus" in Makefile: The "trx-asus"-file in dd-wrt-repo doesn't work as expected yet, so you have to use appropriate austrx files of Freshtomato- or auswrt-Merlin(John's fork)-repos, located in their ctools folder. 
+Too, tools/bufenc/makefw.sh for buffalo routers and tools/ubnt/src/mkfwimage for UBIQUITI? routers don't exist, so really last step in building their firmware cannot be finished.)
+
 BR
 
 st-ty1/\_st_ty/st_ty_
