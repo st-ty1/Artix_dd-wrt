@@ -1,7 +1,7 @@
 # Artix_dd-wrt
 
 HowTo: Build dd-wrt (arm/mipsel) on Artix host system 
-(test with state of dd-wrt repo: commit e3a6d6c3032d; 06/03/21)
+(test with state of dd-wrt repo: commit 94ad598c9c1; 3rd April 2021)
 
 WARNING: Don't start, if you are not familiar with both - Arch Linux/Artix and the standard building process of dd-wrt!!
 
