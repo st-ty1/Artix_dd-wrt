@@ -1,4 +1,4 @@
---- /home/stephan/dd-wrt/src/router/libtalloc/lib/replace/wscript	2021-03-31 23:13:07.900000000 +0200
+--- src/router/libtalloc/lib/replace/wscript	2021-03-31 23:13:07.900000000 +0200
 +++ wscript	2021-03-05 19:27:20.783260400 +0100
 @@ -69,40 +69,40 @@
  
