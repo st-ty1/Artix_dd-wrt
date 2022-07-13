@@ -1,5 +1,11 @@
 # Artix_dd-wrt
 
+#######################################
+
+  The patches of this repo are more than 1 year old, so it is highly possible that they don't work anymore.
+
+#######################################
+
 HowTo: Build dd-wrt (arm/mipsel) on Artix host system 
 (test with state of dd-wrt repo: commit 94ad598c9c1; 3rd April 2021)
 
