@@ -2,7 +2,11 @@
 
 #######################################
 
-  The patches of this repo are more than 1 year old, so it is highly possible that they don't work anymore.
+  The patches of this repo are more than 1 year old, so it is highly possible that some of them don't work anymore, some of them are not needed anymore and some new patches are needed.
+  I'm working on this !!!
+  Also, the patches in this repo can make the build process working without a break, but they still cannot create an useable firmware image, as all (!!!!!) of the *-install targets are still missing in configs.mk .
+  I will insert them.
+  For me, it is beyond comprehension, how the sources in the dd-wrt github repo ever could work out of the box to build any firmware. Up to now, they have needed to be patched.
 
 #######################################
 
