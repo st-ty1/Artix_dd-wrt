@@ -10,7 +10,7 @@
 
 #######################################
 
-HowTo: Build dd-wrt (arm/mipsel) on Artix host system 
+HowTo: Build dd-wrt (for routers with Broadcom arm-/Broadcom mips-cpu) on Artix host system 
 (test with state of dd-wrt repo: commit 94ad598c9c1; 3rd April 2021)
 
 WARNING: Don't start, if you are not familiar with both - Arch Linux/Artix and the standard building process of dd-wrt!!
