@@ -23,7 +23,7 @@ WARNING: Don't start, if you are not familiar with both - Arch Linux/Artix and t
    - Arch Linux/Artix based systems depends much more on shared libraries than Debian/Ubuntu systems does, so building tools
      like libtool and pkgconfig are more likely misdirected by presence of shared libs of host-OS and will fail.
 
-3. Best practice: (detailed description for VM or wsl2 in separate files)
+3. Best practice: (detailed description for VM or wsl2 in How-to_Artix_on_wsl2.txt and How-to_Artix_on_VM.txt)
    - Copy or clone this repo into a first subfolder of your home directory. 
    - Download dd-wrt toolchains from https://download1.dd-wrt.com/dd-wrtv2/downloads/toolchains/toolchains.tar.xz and install it into a second subfolder of your home directory.
    - Download source code of daq-2.0.6 from https://www.snort.org/downloads/archive/snort/daq-2.0.6.tar.gz and install it into a third subfolder of your home directory
