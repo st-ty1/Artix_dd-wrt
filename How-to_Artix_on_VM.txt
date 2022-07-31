@@ -26,12 +26,12 @@ After system has booted start typing:
 	/bin/sh5 # ln -s /etc/init.d/net.lo /etc/init.d/net.<interface>
 	/bin/sh5 # rc-update add net.<interface> default
 	/bin/sh5 # rc-update add dhcpcd default
-	/bin/sh5 # pacman -S sudo nano make gcc which autoconf automake pkgconf patch bison flex cmake rpcsvc-proto gperf python intltool re2c diffutils git svn gtk-doc bc gengetopt talloc python-pip
-	/bin/sh5 # nano /etc/pacman.conf # -> enable multilib repository by uncomment these two lines of [multilib] section of pacman.conf
-					 [multilib]
+	/bin/sh5 # pacman -S sudo nano make gcc which autoconf automake pkgconf patch bison flex cmake rpcsvc-proto gperf python intltool re2c diffutils git svn gtk-doc bc gengetopt talloc python-pip wget python2
+	/bin/sh5 # nano /etc/pacman.conf # -> enable lib32 repository by uncomment these two lines of [multilib] section of pacman.conf
+					 [lib32]
 					 Include = /etc/pacman.d/mirrorlist
 	/bin/sh5 # pacman -Syy
-	/bin/sh5 # pacman -S sudo lib32-glibc lib32-gcc-libs lib32-zlib wget
+	/bin/sh5 # pacman -S sudo lib32-glibc lib32-gcc-libs lib32-zlib
 	/bin/sh5 # nano /etc/sudoer 	   	(To allow members of group wheel sudo access: %wheel      ALL=(ALL) ALL)
 	/bin/sh5 # useradd -m aG wheel <username>
 	/bin/sh5 # passwd <username>
@@ -53,8 +53,8 @@ Login as <username> and type:
 [<username>@PC-NAME ~]$ wget -O toolchains.tar.gz https://download1.dd-wrt.com/dd-wrtv2/downloads/toolchains/toolchains.tar.xz
 [<username>@PC-NAME ~]$ tar -xvjf tololchains.tar.xz
 [<username>@PC-NAME ~]$ cd ..
-[<username>@PC-NAME ~]$ wget -O daq-2.0.6.tar.gz https://www.snort.org/downloads/archive/snort/daq-2.0.6.tar.gz
-[<username>@PC-NAME ~]$ tar -xvzf daq-2.0.6.tar.gz
+[<username>@PC-NAME ~]$ wget -O daq-2.0.7.tar.gz https://www.snort.org/downloads/archive/snort/daq-2.0.7.tar.gz
+[<username>@PC-NAME ~]$ tar -xvzf daq-2.0.7.tar.gz
 [<username>@PC-NAME ~]$ cd Artix_dd-wrt
 [<username>@PC-NAME Artix_dd-wrt]$ chmod 744 *.sh
 [<username>@PC-NAME Artix_dd-wrt]$ ./build_dd-wrt_arm.sh  (or  ./build_dd-wrt_mipsel.sh)
