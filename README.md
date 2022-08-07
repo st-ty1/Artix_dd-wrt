@@ -3,10 +3,7 @@
 #######################################
 
   The patches of this repo are more than 1 year old, so it is highly possible that some of them don't work anymore, some of them are not needed anymore and some new patches are needed.
-  I'm working on this !!!
-  Also, the patches in this repo could make the build process working without a break, but they still cannot create an useable firmware image, as nearly all of the *-install targets are still missing in configs.mk .
-  and will have to be inserted first.
-  Also, the script files have to be updated. Pls, be patient.
+  I'm working on this. Also, the script files have to be updated. Pls, be patient.
 
 #######################################
 
