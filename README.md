@@ -27,11 +27,11 @@ How to build dd-wrt (for routers with Broadcom arm-/Broadcom mips-cpu) on Artix 
    - Copy or clone this repo into a first subfolder of your home directory. 
    - Download dd-wrt toolchains from https://download1.dd-wrt.com/dd-wrtv2/downloads/toolchains/toolchains.tar.xz, move it to a second subfolder $HOME/dd-wrt_toolchains. Look at the content of this big archive (8GB) by:
      
-        tar tvfJ toolchains.tar.xz > toolchains_list.txt
+     `   tar tvfJ toolchains.tar.xz > toolchains_list.txt`
 
      and extraxt only the toolchain you need by:
 
-        tar xvf toolchains.tar.xz \<needed toolchain\> 
+       `tar xvf toolchains.tar.xz <folder of needed toolchain> `
 
    - Download source code of daq-2.0.7 from https://www.snort.org/downloads/archive/snort/daq-2.0.7.tar.gz and install it into a third subfolder of your home directory
    - Make one of the two shell scripts (build_dd-wrt_arm.sh/build_dd-wrt_mipsel.sh) executable you need for your router model (depending on architecture of CPU of router) .
