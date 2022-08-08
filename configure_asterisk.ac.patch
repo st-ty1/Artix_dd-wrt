@@ -1,0 +1,16 @@
+--- configure_asterisk.ac.orig	2022-08-07 15:16:19.155006000 +0200
++++ configure_asterisk.ac	2022-08-05 14:06:50.991100000 +0200
+@@ -2835,7 +2835,7 @@
+ AC_SUBST([PBX_SYSTEMD])
+ AC_SUBST([SYSTEMD_LIB])
+ AC_SUBST([SYSTEMD_INCLUDE])
+-AST_PKG_CONFIG_CHECK([SYSTEMD], [libsystemd])
++#AST_PKG_CONFIG_CHECK([SYSTEMD], [libsystemd])
+ 
+ PBX_SYSLOG=0
+ 
+@@ -2937,3 +2937,4 @@
+ if test "${cross_compiling}" = "yes"; then
+    AC_MSG_NOTICE( Cross Compilation = YES)
+ fi
++

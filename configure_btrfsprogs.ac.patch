@@ -1,0 +1,11 @@
+--- configure_btrfsprogs.ac.orig	2022-07-30 20:02:19.991611000 +0200
++++ configure_btrfsprogs.ac	2022-07-30 18:59:17.594206000 +0200
+@@ -173,7 +173,7 @@
+ 	fi
+ 	if test "x$with_convert" = "xauto"; then
+ 		PKG_CHECK_MODULES(REISERFS, [reiserfscore >= 3.6.27],
+-				  [BTRFSCONVERT_REISERFS=1],
++				  [BTRFSCONVERT_REISERFS=0],
+ 				  [BTRFSCONVERT_REISERFS=0])
+ 	elif echo "$with_convert" | grep -q "reiserfs"; then
+ 		PKG_CHECK_MODULES(REISERFS, [reiserfscore >= 3.6.27],

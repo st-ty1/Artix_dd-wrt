@@ -1,0 +1,35 @@
+--- softether.mk.orig	2022-08-07 15:16:38.628785000 +0200
++++ softether.mk	2022-08-02 16:52:07.089922000 +0200
+@@ -18,7 +18,7 @@
+ SOFTETHER_EXTRA_LDFLAGS=-L$(TOP)/openssl -lcrypto -lssl -L$(TOP)/readline/shlib -L$(TOP)/ncurses/lib -L$(TOP)/zlib -L$(TOP)/libsodium/src/libsodium/.libs -lreadline -lhistory -lncurses -lz
+ 
+ 
+-softether-configure: zlib readline ncurses
++softether-configure: 
+ 	rm -f $(TOP)/softether/CMakeCache.txt
+ 	rm -rf $(TOP)/softether/host
+ 	mkdir $(TOP)/softether/host
+@@ -27,12 +27,13 @@
+ 	sed -i 's/\SHARED/STATIC/g' $(TOP)/softether/host/src/Cedar/CMakeLists.txt
+ 	sed -i 's/\readline/libreadline.a/g' $(TOP)/softether/host/src/Cedar/CMakeLists.txt
+ 	cd $(TOP)/softether/host && export CC=gcc && export LD=ld && export CFLAGS=-O2 && cmake -DCMAKE_BUILD_TYPE=release .
+-	cd $(TOP)/softether/host && export CC=gcc && export LD=ld && export CFLAGS=-O2 && make
+-	cp $(TOP)/softether/host/src/hamcorebuilder/hamcorebuilder /usr/local/bin
++	cd $(TOP)/softether/host && export CC=gcc && export LD=ld && export CFLAGS=-O2 && make hamcorebuilder
++#	mkdir $(TOP)/softether/tmp
++#	cp $(TOP)/softether/host/src/hamcorebuilder/hamcorebuilder $(TOP)/softether/tmp/hamcorebuilder	
+ 	$(call CMakeClean,$(SOFTETHER_PKG_BUILD_DIR))
+ 	$(call CMakeConfigure,$(SOFTETHER_PKG_BUILD_DIR),$(SOFTETHER_STAGING_DIR),$(SOFTETHER_CMAKE_OPTIONS),$(SOFTETHER_EXTRA_CFLAGS),$(SOFTETHER_EXTRA_LDFLAGS),.) 
+ 
+-softether: zlib ncurses
++softether:
+ 	cp -f $(TOP)/softether/config/* httpd/ej_temp/
+ 	$(MAKE) -C softether
+ 
+@@ -60,4 +61,4 @@
+ 
+ 
+ softether-clean:
+-	if [ -e "$(SOFTETHER_PKG_BUILD_DIR)/Makefile" ]; then $(MAKE) -C softether clean ; fi
+\ No newline at end of file
++	if [ -e "$(SOFTETHER_PKG_BUILD_DIR)/Makefile" ]; then $(MAKE) -C softether clean ; fi

@@ -1,0 +1,10 @@
+--- aircrack-ng.mk.orig	2022-08-07 15:16:38.602118000 +0200
++++ aircrack-ng.mk	2022-08-05 19:18:42.672926000 +0200
+@@ -16,6 +16,7 @@
+         --prefix=/usr \
+         --disable-libnl \
+         --libdir=/usr/lib \
++        HAVE_HWLOC=no \
+ 	ZLIB_CFLAGS="-I$(TOP)/zlib" \
+ 	ZLIB_LIBS="-L$(TOP)/zlib -lz" \
+ 	PCRE_CFLAGS="-I$(TOP)/pcre" \

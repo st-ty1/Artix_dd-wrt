@@ -1,0 +1,10 @@
+--- krb5.mk.orig	2022-08-07 15:16:38.625452000 +0200
++++ krb5.mk	2022-07-28 10:24:50.961125000 +0200
+@@ -5,6 +5,7 @@
+ 		LDFLAGS="-L$(TOP)/openssl" \
+ 		--prefix=/usr \
+ 		--without-system-verto \
++		--without-libedit \
+ 		krb5_cv_attr_constructor_destructor=yes \
+ 		ac_cv_func_regcomp=yes \
+ 		ac_cv_printf_positional=no

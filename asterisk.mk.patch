@@ -1,0 +1,58 @@
+--- asterisk.mk.orig	2022-08-07 15:16:38.605451000 +0200
++++ asterisk.mk	2022-08-05 14:26:39.767208000 +0200
+@@ -1,5 +1,5 @@
+ editline-configure:
+-	cd editline && ./configure --host=$(ARCH)-linux-uclibc --prefix=/usr --libdir=/usr/lib \
++	cd editline && autoreconf -fi && ./configure --host=$(ARCH)-linux-uclibc --prefix=/usr --libdir=/usr/lib \
+ 	CFLAGS="$(COPTS) $(MIPS16_OPT) -DNEED_PRINTF -D_GNU_SOURCE -I$(TOP)/ncurses/include" \
+ 	CXXFLAGS="$(COPTS) $(MIPS16_OPT) -DNEED_PRINTF -D_GNU_SOURCE -I$(TOP)/ncurses/include" \
+ 	CPPFLAGS="$(COPTS) $(MIPS16_OPT) -DNEED_PRINTF -D_GNU_SOURCE -I$(TOP)/ncurses/include" \
+@@ -17,14 +17,14 @@
+ 	rm -f $(INSTALLDIR)/editline/usr/lib/*.la
+ 
+ 
+-asterisk-configure: util-linux-configure jansson editline zlib minidlna
++asterisk-configure: 
+ 	make -C util-linux
+ 	make -C util-linux install DESTDIR=$(INSTALLDIR)/util-linux
+ 	mkdir -p $(INSTALLDIR)/util-linux/usr/lib
+ 	-cp -urv $(INSTALLDIR)/util-linux/usr/tmp/* $(INSTALLDIR)/util-linux/usr/lib
+ 	rm -rf $(INSTALLDIR)/util-linux/usr/tmp 
+ 	rm -f asterisk/menuselect.makeopts && \
+-	cd asterisk && ./configure --host=$(ARCH)-linux-uclibc \
++	cd asterisk && ./bootstrap.sh && ./configure --host=$(ARCH)-linux-uclibc \
+ 	--libdir=/usr/lib \
+ 	--without-cap \
+ 	--without-curl \
+@@ -126,22 +126,7 @@
+ 		DEBUG="" \
+ 		OPTIMIZE="" \
+ 		all
+-	-make -C asterisk
+ 
+-	-make -C asterisk \
+-		include/asterisk/version.h \
+-		include/asterisk/buildopts.h defaults.h \
+-		makeopts.embed_rules
+-	-ASTCFLAGS="$(COPTS) $(MIPS16_OPT) -DLOW_MEMORY -DNEED_PRINTF -fPIC -I$(TOP)/ncurses/include -I$(INSTALLDIR)/util-linux/usr/include -I$(TOP)/openssl/include -I$(TOP)/minidlna/sqlite-3.6.22" \
+-	ASTLDFLAGS="$(COPTS) $(MIPS16_OPT) -DLOW_MEMORY -DNEED_PRINTF -fPIC -L$(TOP)/ncurses/lib -L$(TOP)/openssl -L$(TOP)/minidlna/lib" \
+-	make -C asterisk \
+-		ASTVARLIBDIR="/usr/lib/asterisk" \
+-		NOISY_BUILD="1" \
+-		DEBUG="" \
+-		OPTIMIZE="" \
+-		all
+-	-make -C asterisk
+-#	make -C chan_dongle
+ 	rm -rf $(INSTALLDIR)/util-linux/usr/sbin
+ 	rm -rf $(INSTALLDIR)/util-linux/usr/bin
+ 	rm -rf $(INSTALLDIR)/util-linux/bin
+@@ -179,7 +164,7 @@
+ asterisk-install:
+ 	chmod 700 asterisk/build_tools/install_subst
+ 	-ASTCFLAGS="$(COPTS) $(MIPS16_OPT) -DLOW_MEMORY -DNEED_PRINTF -fPIC -I$(TOP)/ncurses/include -I$(INSTALLDIR)/util-linux/usr/include -I$(TOP)/openssl/include -I$(TOP)/minidlna/sqlite-3.6.22" \
+-	ASTLDFLAGS="$(COPTS) $(MIPS16_OPT) -DLOW_MEMORY -DNEED_PRINTF -fPIC -L$(TOP)/ncurses/lib -L$(TOP)/openssl -L$(TOP)/minidlna/lib" \
++	ASTLDFLAGS="$(COPTS) $(MIPS16_OPT) -DLOW_MEMORY -DNEED_PRINTF -fPIC -L$(TOP)/ncurses/libW-L$(TOP)/openssl -L$(TOP)/minidlna/lib" \
+ 	$(MAKE) -C asterisk \
+ 		ASTVARLIBDIR="/usr/lib/asterisk" \
+ 		NOISY_BUILD="1" \

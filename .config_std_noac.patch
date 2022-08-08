@@ -1,0 +1,18 @@
+--- .config_std_noac.orig	2022-08-02 12:44:32.594777000 +0200
++++ .config_std_noac	2022-08-07 14:15:45.771924000 +0200
+@@ -1215,13 +1215,13 @@
+ CONFIG_ET_47XX=y
+ # CONFIG_ET_ALL_PASSIVE_ON is not set
+ CONFIG_ET_ALL_PASSIVE_RUNTIME=y
+-CONFIG_BCM_CTF=y
++CONFIG_BCM_CTF=m
+ CONFIG_BCM_FA=y
+ # CONFIG_BCM_GMAC3 is not set
+ # CONFIG_WL_EMULATOR is not set
+ CONFIG_BCM57XX=m
+ # CONFIG_DHDAP is not set
+-CONFIG_WL=y
++CONFIG_WL=m
+ # CONFIG_WAPI is not set
+ # CONFIG_WL_USE_AP is not set
+ # CONFIG_WL_USE_AP_SDSTD is not set

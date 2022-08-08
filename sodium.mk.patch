@@ -1,0 +1,9 @@
+--- sodium.mk.orig	2022-08-07 15:16:38.628785000 +0200
++++ sodium.mk	2022-07-23 19:31:48.007994000 +0200
+@@ -20,4 +20,4 @@
+ 	make -C libsodium
+ 
+ libsodium-install:
+-	@true
+\ No newline at end of file
++	@true

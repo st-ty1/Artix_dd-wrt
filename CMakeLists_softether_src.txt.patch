@@ -1,0 +1,13 @@
+--- CMakeLists_softether_src.txt.orig	2022-08-07 15:16:40.085485000 +0200
++++ CMakeLists_softether_src.txt	2022-07-28 00:53:14.517084000 +0200
+@@ -149,8 +149,8 @@
+ 
+ add_custom_command(
+   COMMENT "Building hamcore.se2 archive file..."
+-  COMMAND hamcorebuilder "hamcore.se2" "${TOP_DIRECTORY}/src/bin/hamcore"
+-  DEPENDS hamcorebuilder "${TOP_DIRECTORY}/src/bin/hamcore/"
++  COMMAND ${TOP_DIRECTORY}/host/src/hamcorebuilder/hamcorebuilder "hamcore.se2" "${TOP_DIRECTORY}/src/bin/hamcore"
++  DEPENDS ${TOP_DIRECTORY}/host/src/hamcorebuilder/hamcorebuilder "${TOP_DIRECTORY}/src/bin/hamcore/"
+   OUTPUT "${BUILD_DIRECTORY}/hamcore.se2"
+   WORKING_DIRECTORY "${BUILD_DIRECTORY}"
+   VERBATIM

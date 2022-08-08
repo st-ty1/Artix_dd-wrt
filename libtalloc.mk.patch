@@ -1,0 +1,28 @@
+--- libtalloc.mk.orig	2022-08-07 15:16:38.628785000 +0200
++++ libtalloc.mk	2022-07-31 13:56:32.002943000 +0200
+@@ -38,6 +38,7 @@
+ 	\n"
+ 
+ libtalloc-configure:
++	cd libtalloc && find . -type f -exec sed -ie '/^#!/s/python/python2/g' {} \;
+ 	(cd libtalloc; \
+ 		echo -e >cache.txt $(TALLOCCROSS) " \
+ 			\nChecking uname machine type: \"$(ARCH)\" \
+@@ -53,9 +54,9 @@
+ 			--cross-answers=$(TOP)/libtalloc/cache.txt \
+ 			--disable-rpath \
+ 			--disable-rpath-install \
++			--disable-python \
+ 	)
+ 
+-
+ #	cd libtalloc && ./configure --hostcc=gcc --prefix=/usr CFLAGS="$(COPTS) $(MIPS16_OPT)"
+ 
+ libtalloc:
+@@ -63,4 +64,4 @@
+ 	
+ libtalloc-install:
+ 	mkdir -p $(INSTALLDIR)/libtalloc/usr/lib
+-	cp libtalloc/bin/default/libtalloc.so $(INSTALLDIR)/libtalloc/usr/lib/libtalloc.so.2
+\ No newline at end of file
++	cp libtalloc/bin/default/libtalloc.so $(INSTALLDIR)/libtalloc/usr/lib/libtalloc.so.2

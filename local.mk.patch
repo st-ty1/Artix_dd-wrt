@@ -1,0 +1,21 @@
+--- local.mk.orig	2022-08-07 15:16:35.348710000 +0200
++++ local.mk	2022-07-30 13:24:05.935869000 +0200
+@@ -74,12 +74,14 @@
+ ifeq ($(VERBOSE),0)
+ 	@echo "[BISON] $@"
+ endif
+-	$(MAKECMDPREFIX)$(BISON) -d -o "$@-tmp" "$<"
+-	$(MAKECMDPREFIX)sed	-e 's/register //' \
++	$(MAKECMDPREFIX)bison -d -o $@-tmp $<
++	sed -e 's/register //' \
++		-e 's/oparse.h-tmp/oparse.h/' \
+ 		-e '/^#line/s/$(call quote,$@-tmp)/$(call quote,$@)/' \
+ 		< "$@-tmp" >"$@"
+-	$(MAKECMDPREFIX)mv "$(subst .c,.h,$@-tmp)" "$(subst .c,.h,$@)"
+-	$(MAKECMDPREFIX)$(RM) "$@-tmp" "$(subst .c,.h,$@-tmp)"
++	mv $(subst .c,.h,$@-tmp) $(subst .c,.h,$@)
++	$(MAKECMDPREFIX)$(RM) $@-tmp $(subst .c,.h,$@-tmp)
++
+ 
+ $(C)oparse.o: CFLAGS := $(filter-out -Wunreachable-code,$(CFLAGS))
+ 

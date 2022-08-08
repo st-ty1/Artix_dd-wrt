@@ -1,0 +1,10 @@
+--- util-linux.mk.orig	2022-08-07 15:16:38.632119000 +0200
++++ util-linux.mk	2022-07-26 12:13:30.183791000 +0200
+@@ -7,6 +7,7 @@
+ 	--disable-sulogin	\
+ 	--without-python	\
+ 	--without-udev		\
++	--disable-use-tty-group \
+ 	--with-ncurses
+ 	make -C util-linux
+ 

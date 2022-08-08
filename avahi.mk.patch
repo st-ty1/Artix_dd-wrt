@@ -1,0 +1,39 @@
+--- avahi.mk.orig	2022-08-07 15:16:38.605451000 +0200
++++ avahi.mk	2022-07-28 11:50:42.693282000 +0200
+@@ -2,7 +2,7 @@
+ ULDFLAGS_DBUS:=-L$(TOP)/dbus/dbus/.libs -ldbus-1
+ 
+ 
+-avahi-configure: expat dbus libdaemon
++avahi-configure: expat libdaemon
+ 	# runstatedir does not work it defaults to /run, patch configure.ac 1007: avahi_runtime_dir="${localstatedir}/run"
+ 	mkdir -p avahi/build_utils
+ 	mkdir -p avahi/build_normal
+@@ -12,7 +12,7 @@
+ 		--localstatedir=/tmp/var \
+ 		--with-distro=none \
+ 		--enable-introspection=no \
+-		--enable-dbus \
++		--disable-dbus \
+ 		--disable-nls --disable-glib --disable-libevent --disable-gobject \
+ 		--disable-qt3 --disable-qt4 --disable-qt5 --disable-gtk --disable-gtk3 \
+ 		--disable-gdbm --disable-python --disable-python-dbus \
+@@ -29,9 +29,9 @@
+ 		LIBEVENT_LIBS="-L$(TOP)/libevent/.libs" \
+ 		GLIB20_LIBS="-L$(TOP)/glib20/libglib -L$(TOP)/glib20/libglib/glib -L$(TOP)/glib20/libglib/build/glib" \
+ 		GLIB20_CFLAGS="-I$(TOP)/glib20/libglib/glib -I$(TOP)/glib20/libglib -I$(TOP)/glib20/libglib/build/glib" \
+-		CFLAGS="$(LTO) $(COPTS) $(MIPS16_OPT) -DNEED_PRINTF -D_GNU_SOURCE -ffunction-sections -fdata-sections -I$(TOP)/expat/lib $(UCFLAGS_DBUS) -Wl,--gc-sections -Drpl_malloc=malloc" \
++		CFLAGS="$(LTO) $(COPTS) $(MIPS16_OPT) -DNEED_PRINTF -D_GNU_SOURCE -ffunction-sections -fdata-sections -I$(TOP)/expat/lib -Wl,--gc-sections -Drpl_malloc=malloc" \
+ 		CPPFLAGS="$(LTO) $(COPTS) $(MIPS16_OPT) -DNEED_PRINTF -ffunction-sections -fdata-sections -Wl,--gc-sections -Drpl_malloc=malloc" \
+-		LDFLAGS="$(LDLTO) -L$(TOP)/expat/dynamic/lib/.libs $(ULDFLAGS_DBUS) -ldl -ffunction-sections -fdata-sections -Wl,--gc-sections" \
++		LDFLAGS="$(LDLTO) -L$(TOP)/expat/dynamic/lib/.libs -ldl -ffunction-sections -fdata-sections -Wl,--gc-sections" \
+ 		AR_FLAGS="cru $(LTOPLUGIN)" \
+ 		RANLIB="$(ARCH)-linux-ranlib $(LTOPLUGIN)" 
+ 
+@@ -96,4 +96,4 @@
+ 
+ endif
+ 
+-.PHONY: avahi avahi-configure avahi-install avahi-clean
+\ No newline at end of file
++.PHONY: avahi avahi-configure avahi-install avahi-clean

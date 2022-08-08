@@ -1,0 +1,11 @@
+--- Makefile_linux-4.4.orig	2022-08-05 15:43:46.705077000 +0200
++++ Makefile_linux-4.4	2022-08-05 15:11:21.251992000 +0200
+@@ -394,7 +394,7 @@
+ KBUILD_CPPFLAGS := -D__KERNEL__
+ 
+ KBUILD_CFLAGS   := -Wall -Wundef -Wstrict-prototypes -Wno-trigraphs \
+-		   -fno-strict-aliasing -fno-common \
++		   -fno-strict-aliasing -fcommon \
+ 		   -Werror-implicit-function-declaration \
+ 		   -Wno-format-security \
+ 		   -std=gnu89 $(call cc-option,-fno-PIE)

@@ -1,0 +1,13 @@
+--- /home/stephan/dd-wrt/src/router/rc/Makefile	2021-03-31 23:13:07.940000000 +0200
++++ Makefile_rc	2021-03-05 19:27:20.783260400 +0100
+@@ -7,8 +7,8 @@
+ 
+ 
+ ifeq ($(CONFIG_80211AC),y)
+-CFLAGS	= -I. -I$(LINUXDIR)/brcm/$(ARCH)/include -Wall
+-CFLAGS	= -I. -I$(LINUXDIR)/brcm/$(ARCH)/common/include
++CFLAGS	+= -I. -I$(LINUXDIR)/brcm/$(ARCH)/include -Wall
++CFLAGS	+= -I. -I$(LINUXDIR)/brcm/$(ARCH)/common/include
+ endif
+ 
+ ifeq ($(CONFIG_MSSID),y)

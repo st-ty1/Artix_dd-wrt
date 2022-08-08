@@ -1,10 +1,16 @@
 Necessary packages for building dd-wrt on Artix are:
-make, gcc, which, autoconf, automake, pkgconf, patch, bison, flex, cmake, rpcsvc-proto, gperf, python, intltool,
-svn, gtk-doc, bc, gengetopt, talloc, re2c, python-pip, python2, ninja and squashfs-tools.
+make, gcc, which, autoconf, automake, pkgconf, patch, bison, flex, cmake, rpcsvc-proto, gperf, python2, intltool,
+svn, gtk-doc, bc, gengetopt, talloc, re2c, python-pip and meson
 
 The precompiled 32-bit host-tools of FT need following packages: lib32-glibc, lib32-gcc-libs and lib32-zlib
-(Therefore, don't forget to uncomment the lines of the "lib32" section in /etc/pacman.conf).
+(Therefore, don't forget to uncomment the lines of the "Multilib" and the "lib32" section in /etc/pacman.conf).
 
+Artix: gengetopt need extra and community repos enabled in pacman.conf.
+
+For generating/editing Artix-specific patches installing of package diffutils should be helpful.
+
+If you are working with Artix or Arch Linux on wsl2/Windows then you should also install nano-package.
+That's all !!!
 BR
 st-ty1/st_ty_/_st_ty
 

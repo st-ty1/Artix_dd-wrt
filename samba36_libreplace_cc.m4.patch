@@ -1,0 +1,15 @@
+--- /home/stephan/dd-wrt/src/router/samba36/lib/replace/libreplace_cc.m4	2021-03-31 23:13:07.950000000 +0200
++++ samba36_patches/libreplace_cc.m4	2021-03-10 09:51:02.078644400 +0100
+@@ -31,9 +31,9 @@
+ 
+ dnl don't try for C99 if we are using gcc, as otherwise we 
+ dnl lose immediate structure constants
+-if test x"$GCC" != x"yes" ; then
+-AC_PROG_CC_C99
+-fi
++##if test x"$GCC" != x"yes" ; then
++##AC_PROG_CC_C99
++##fi
+ 
+ if test x"$GCC" = x"yes" ; then
+ 	AC_MSG_CHECKING([for version of gcc])

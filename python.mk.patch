@@ -1,0 +1,27 @@
+--- python.mk.orig	2022-08-07 15:16:38.628785000 +0200
++++ python.mk	2022-07-31 14:15:20.528350000 +0200
+@@ -1,7 +1,8 @@
+ python-configure: libffi-configure libffi libffi-install zlib
+ #	cd python && cp Modules/Setup Modules/Setup
++	cd python && chmod 755 setup.py
+ 	cd python && echo "# bogus" > Modules/Setup.local 
+-	cd python && ./configure  --host=$(ARCH)-linux --build=$(ARCH) --sysconfdir=/etc \
++	cd python && autoreconf -fi && ./configure  --host=$(ARCH)-linux --build=$(ARCH) --sysconfdir=/etc \
+ 		--enable-shared \
+ 		--enable-static \
+ 		--prefix=/usr \
+@@ -33,11 +34,12 @@
+ python: libffi zlib
+ 	make -C libffi install DESTDIR=$(INSTALLDIR)/libffi
+ 	make -C python python Parser/pgen
+-	make -C python sharedmods
++#	make -C python sharedmods
+ 
+ python-install:
+ 	make -C libffi install DESTDIR=$(INSTALLDIR)/libffi
+-	make -C python install DESTDIR=$(INSTALLDIR)/python
++#	make -C python install DESTDIR=$(INSTALLDIR)/python
++	make -C python bininstall libinstall DESTDIR=$(INSTALLDIR)/python
+ 	cd $(INSTALLDIR)/python/usr/bin && ln -sf /usr/bin/python3 python
+ 	rm -rf $(INSTALLDIR)/python/usr/include
+ 	rm -rf $(INSTALLDIR)/python/usr/share

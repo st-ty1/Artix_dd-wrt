@@ -1,0 +1,19 @@
+--- libcares.mk.orig	2022-08-07 15:16:38.625452000 +0200
++++ libcares.mk	2022-07-26 19:04:52.631302000 +0200
+@@ -18,12 +18,9 @@
+ 	$(MAKE) -C libcares clean
+ 
+ libcares-configure:
+-	-cd libcares && autoreconf -fi
+ 	cd libcares && autoreconf -fi
+-	cd libcares && ./configure ac_cv_host=$(ARCH)-uclibc-linux --prefix=/usr --libdir=/usr/lib --target=$(ARCH)-linux --host=$(ARCH) CC="ccache $(ARCH)-linux-uclibc-gcc"
+-	CFLAGS="$(COPTS) $(MIPS16_OPT) -ffunction-sections -fdata-sections -Wl,--gc-section"
+-	CC="ccache $(ARCH)-linux-uclibc-gcc" \
+-	CFLAGS="$(COPTS) $(MIPS16_OPT) -ffunction-sections -fdata-sections -Wl,--gc-sections" \
++	cd libcares && ./configure ac_cv_host=$(ARCH)-uclibc-linux --prefix=/usr --libdir=/usr/lib --target=$(ARCH)-linux --host=$(ARCH) CC="ccache $(ARCH)-linux-uclibc-gcc" --disable-dependency-tracking \
++	CFLAGS="$(COPTS) $(MIPS16_OPT) -ffunction-sections -fdata-sections -Wl,--gc-section" \
+ 	CPPFLAGS="$(COPTS) $(MIPS16_OPT) -ffunction-sections -fdata-sections -Wl,--gc-sections" \
+-	LDFLAGS="$(COPTS) $(MIPS16_OPT) -fPIC" \
+-	$(MAKE) -C libcares
++	LDFLAGS="$(COPTS) $(MIPS16_OPT) -fPIC" 
++	sed "s|@CODE_COVERAGE_RULES@|	@CODE_COVERAGE_RULES@|g" -i $(TOP)/libcares/src/lib/Makefile

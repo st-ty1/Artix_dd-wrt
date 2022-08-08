@@ -1,0 +1,43 @@
+--- /home/stephan/dd-wrt/src/router/rules/ntfs-3g.mk	2021-03-31 23:13:07.950000000 +0200
++++ ntfs-3g.mk	2021-03-17 13:43:29.810000000 +0100
+@@ -1,11 +1,11 @@
+ 
+-ntfs-3g:
++ntfs-3g: ntfs-3g-configure
+ 	CC="$(CC)" \
+-	CFLAGS="$(COPTS) -DNEED_PRINTF $(MIPS16_OPT) -ffunction-sections -fdata-sections -Wl,--gc-sections" \
++	CFLAGS="$(COPTS)  $(MIPS16_OPT) -ffunction-sections -fdata-sections -Wl,--gc-sections" \
+ 	CPPFLAGS="$(COPTS) $(MIPS16_OPT) -ffunction-sections -fdata-sections -Wl,--gc-sections" \
+ 	CXXFLAGS="$(COPTS) $(MIPS16_OPT) -ffunction-sections -fdata-sections -Wl,--gc-sections" \
+ 	LDFLAGS="$(COPTS) $(MIPS16_OPT) -fPIC -ffunction-sections -fdata-sections -Wl,--gc-sections" \
+-	$(MAKE) -C ntfs-3g/fuse
++#	$(MAKE) -C ntfs-3g/fuse
+ 	$(MAKE) -C ntfs-3g all
+ 
+ ntfs-3g-install:
+@@ -22,21 +22,11 @@
+ 	$(MAKE) -C ntfs-3g clean
+ 
+ ntfs-3g-configure:
+-	cd ntfs-3g/fuse && ./configure --prefix=/usr \
++	cd ntfs-3g && ./autogen.sh && ./configure --prefix=/usr \
+ 			--target=$(ARCH)-linux \
+ 			--host=$(ARCH) \
+ 			CC="$(CC)" \
+-			CXXFLAGS="$(COPTS) $(MIPS16_OPT)  -DNEED_PRINTF -DDEBUG -ffunction-sections -fdata-sections -Wl,--gc-sections"  \
+-			CFLAGS="$(COPTS) $(MIPS16_OPT)  -DNEED_PRINTF -DDEBUG -ffunction-sections -fdata-sections -Wl,--gc-sections" \
+-			LDFLAGS="$(COPTS) $(MIPS16_OPT) -fPIC -ffunction-sections -fdata-sections -Wl,--gc-sections"
+-	make -C ntfs-3g/fuse
+-	cd ntfs-3g && ./configure --prefix=/usr \
+-			--with-fuse=external \
+-			--target=$(ARCH)-linux \
+-			--host=$(ARCH) \
+-			CC="$(CC)" \
+-			FUSE_MODULE_CFLAGS="-D_FILE_OFFSET_BITS=64 -I$(TOP)/ntfs-3g/fuse/include" \
+-			FUSE_MODULE_LIBS="-pthread -L$(TOP)/ntfs-3g/fuse/lib/.libs -lfuse -lrt -ldl" \
+-			CXXFLAGS="$(COPTS) $(MIPS16_OPT)  -DNEED_PRINTF -DDEBUG -ffunction-sections -fdata-sections -Wl,--gc-sections"  \
+-			CFLAGS="$(COPTS) $(MIPS16_OPT)  -DNEED_PRINTF -DDEBUG -ffunction-sections -fdata-sections -Wl,--gc-sections" \
++			CXXFLAGS="$(COPTS) $(MIPS16_OPT) -ffunction-sections -fdata-sections -Wl,--gc-sections"  \
++			CFLAGS="$(COPTS) $(MIPS16_OPT) -ffunction-sections -fdata-sections -Wl,--gc-sections" \
+ 			LDFLAGS="$(COPTS) $(MIPS16_OPT) -fPIC -ffunction-sections -fdata-sections -Wl,--gc-sections"
++
