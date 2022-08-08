@@ -11,7 +11,7 @@ WARNING:
 
 -  Don't start, if you are not familiar with both - Arch Linux/Artix and the standard building process of dd-wrt!!
   
--  Don't build on a full-featured Artix host OS (i.e. omit any desktop environment), otherwise you will face additional break errors you have to solve! Use bare Artix instead: native, as a VM or with wsl2/windows. If you need support with VM or wsl2, pls look at https://github.com/st-ty1/Artix_FreshTomato or https://github.com/st-ty1/Artix_Asuswrt-Merlin_John_fork. They include How-Tos.
+-  Don't build on a full-featured Artix host OS (i.e. omit any desktop environment), otherwise you will face additional break errors you have to solve! Use bare Artix instead: native, as a VM or with wsl2/windows. If you need support with VM or wsl2, pls look at https://github.com/st-ty1/Artix_FreshTomato or https://github.com/st-ty1/Artix_Asuswrt-Merlin_John_fork. They include How-Tos for VM and wsl2.
 
 How to build dd-wrt (for routers with Broadcom arm-/Broadcom mips-cpu) on Artix host-OS:
 
