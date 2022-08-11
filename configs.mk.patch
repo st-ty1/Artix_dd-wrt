@@ -1,12 +1,10 @@
 --- configs.mk.orig	2022-08-07 15:16:38.605451000 +0200
-+++ configs.mk	2022-08-06 02:22:24.778014000 +0200
-@@ -2,12 +2,12 @@
- obj-$(CONFIG_PROFILING) += zlib libunwind perf
++++ configs.mk	2022-08-11 14:19:58.139150147 +0200
+@@ -3,11 +3,11 @@
  obj-$(CONFIG_OMCPROXY) += omcproxy
  obj-$(CONFIG_NVRAM) += nvram
--obj-$(CONFIG_WIRELESS_TOOLS) += wireless-tools
+ obj-$(CONFIG_WIRELESS_TOOLS) += wireless-tools
 -obj-$(CONFIG_SHARED) += libutils
-+obj-$(CONFIG_WIRELESS_TOOLS) += wireless-tools 
 +obj-$(CONFIG_SHARED) += jansson-configure jansson libutils
  obj-$(CONFIG_SHARED) += shared
  obj-$(CONFIG_LIBNET) += libnet
@@ -38,7 +36,7 @@
 -obj-$(CONFIG_DNSSEC)  += zlib pcre gmp nettle
 -obj-$(CONFIG_DNSMASQ) += dnsmasq
 -obj-$(CONFIG_DNSCRYPT) += libsodium dnscrypt
-+obj-$(CONFIG_DNSSEC)  += zlib pcregmp-configure gmp nettle-configure nettle
++obj-$(CONFIG_DNSSEC)  += zlib pcre gmp-configure gmp nettle-configure nettle
 +obj-$(CONFIG_DNSMASQ) += nettle-configure nettle dnsmasq
 +obj-$(CONFIG_DNSCRYPT) += libsodium-configure libsodium dnscrypt-configure dnscrypt
  obj-$(CONFIG_ETHTOOL) += ethtool
@@ -49,7 +47,7 @@
  else
  obj-$(CONFIG_IPTABLES) += iptables
  endif
-@@ -40,17 +40,17 @@
+@@ -40,7 +40,7 @@
  obj-$(CONFIG_IPSEC) += ipsec
  #obj-$(CONFIG_LIBPCAP) += libpcap
  obj-$(CONFIG_WIVIZ) += wiviz2
@@ -58,18 +56,6 @@
  obj-$(CONFIG_KISMETDRONE) += kismet-devel
  obj-$(CONFIG_NETSTATNAT) += netstatnat
  obj-$(CONFIG_SES) += ses
- obj-$(CONFIG_WPA_SUPPLICANT) += wpa_supplicant
- obj-$(CONFIG_HOSTAPD) += hostapd
- obj-$(CONFIG_NETCONF) += netconf
--obj-$(CONFIG_NTP) += ntpclient
-+obj-$(CONFIG_NTP) += ntpclient 
- obj-$(CONFIG_HTPDATE) += htpdate
- obj-$(CONFIG_IPVS) += libnltiny ipvsadm
--obj-$(CONFIG_PPP) += ppp
-+obj-$(CONFIG_PPP) += ppp 
- # AhMan March 19 2005
- obj-$(CONFIG_PPPOE) += pppoe
- #obj-$(CONFIG_UDHCPD) += udhcpd
 @@ -71,33 +71,33 @@
  obj-$(CONFIG_PPTPD) += pptpd
  obj-$(CONFIG_PIPSEC) += pipsec
@@ -90,7 +76,7 @@
  endif
  ifeq ($(CONFIG_POUND),y)
 -obj-$(CONFIG_SNMP) += snmp
-+obj-$(CONFIG_SNMP) += snmp-configure snm
++obj-$(CONFIG_SNMP) += snmp-configure snmp
  endif
  ifeq ($(CONFIG_IPETH),y)
 -obj-$(CONFIG_SNMP) += snmp
@@ -110,21 +96,20 @@
  endif
  ifeq ($(CONFIG_IPV6),y)
 -obj-$(CONFIG_RADVD) += radvd aiccu
-+obj-$(CONFIG_RADVD) += radvd-configure radvdaiccu
++obj-$(CONFIG_RADVD) += radvd-configure radvd aiccu
  endif
  obj-$(CONFIG_L2TPV3TUN) += l2tpv3tun
  #obj-$(CONFIG_SPUTNIK_APD) += sputnik
-@@ -108,32 +108,32 @@
+@@ -108,7 +108,7 @@
  #obj-$(CONFIG_ADM6996) += adm6996
  obj-$(CONFIG_L2TP) += xl2tpd
  
 -obj-$(CONFIG_CHILLISPOT) += chillispot
 +obj-$(CONFIG_CHILLISPOT) += chillispot-configure chillispot
  obj-$(CONFIG_PARPROUTED) += parprouted
--obj-$(CONFIG_HEARTBEAT) += bpalogin
-+obj-$(CONFIG_HEARTBEAT) += bpalogin 
+ obj-$(CONFIG_HEARTBEAT) += bpalogin
  obj-$(CONFIG_TFTPD) += tftpd
- obj-$(CONFIG_CRON) += cron
+@@ -116,24 +116,24 @@
  obj-$(CONFIG_PPTP) += pptp-client
  obj-$(CONFIG_PPPD) += pppd
  obj-$(CONFIG_ZEBRA) += zebra
@@ -142,10 +127,9 @@
  obj-$(CONFIG_POWERTOP) += pciutils ncurses powertop
 -obj-$(CONFIG_RTPPROXY) += rtpproxy
 -obj-$(CONFIG_ZABBIX) += pcre zabbix
--obj-$(CONFIG_SAMBA) += samba
 +obj-$(CONFIG_RTPPROXY) += rtpproxy-configure rtpproxy
 +obj-$(CONFIG_ZABBIX) += pcre zabbix-configure zabbix
-+obj-$(CONFIG_SAMBA) += samba 
+ obj-$(CONFIG_SAMBA) += samba
  ifneq ($(CONFIG_SAMBA4),y)
  ifneq ($(CONFIG_SMBD),y)
  obj-$(CONFIG_SAMBA3) += samba3
@@ -192,7 +176,7 @@
  obj-$(CONFIG_FDISK) += fdisk
  ifneq ($(CONFIG_MADWIFI),y)
  ifneq ($(CONFIG_MADWIFI_MIMO),y)
-@@ -181,17 +181,17 @@
+@@ -181,11 +181,11 @@
  endif
  endif
  obj-$(CONFIG_UTILS) += utils
@@ -207,13 +191,6 @@
  obj-$(CONFIG_HTTPREDIRECT) += http-redirect
  obj-$(CONFIG_SMTPREDIRECT) += smtp-redirect
  #obj-$(CONFIG_SPUTNIK_APD) += sputnik
- obj-$(CONFIG_OVERCLOCKING) += overclocking
- obj-$(CONFIG_PROXYWATCHDOG) += proxywatchdog
--obj-$(CONFIG_JFFS2) += jffs2
-+obj-$(CONFIG_JFFS2) += jffs2l
- obj-$(CONFIG_LANGUAGE) += language
- obj-$(CONFIG_NETWORKSETTINGS) += networksettings
- obj-$(CONFIG_ROUTERSTYLE) += routerstyle
 @@ -199,45 +199,45 @@
  obj-$(CONFIG_SYSLOG) += syslog
  obj-$(CONFIG_TELNET) += telnet
@@ -271,7 +248,7 @@
  obj-$(CONFIG_VPNC) += vpnc
  obj-$(CONFIG_STUCK) += stuck_beacon
  obj-$(CONFIG_GPSI) += gpsi
-@@ -256,23 +256,23 @@
+@@ -256,7 +256,7 @@
  obj-$(CONFIG_HOSTAPD2) += hostapd2
  obj-$(CONFIG_WPA_SUPPLICANT2) += wpa_supplicant2
  obj-$(CONFIG_MIITOOL) += net-tools
@@ -280,9 +257,7 @@
  obj-$(CONFIG_RSTP) += rstp
  obj-$(CONFIG_OPENLLDP) += openlldp
  obj-$(CONFIG_WGETS) += wgets
- obj-$(CONFIG_USB) += usb disktype
--obj-$(CONFIG_USB_ADVANCED) += hdparm
-+obj-$(CONFIG_USB_ADVANCED) += hdparm 
+@@ -265,14 +265,14 @@
  ifeq ($(CONFIG_X86),y)
  obj-$(CONFIG_USB_ADVANCED) += sdparm
  endif
@@ -311,7 +286,7 @@
 +obj-$(CONFIG_USBIP) += ncurses util-linux libudev-configure libudev usbip-configure usbip
  #obj-$(CONFIG_XTA) += xtables-addons
 -obj-$(CONFIG_SNORT) += libpcap xz libnfnetlink libnetfilter_queue libdnet daq pcre snort
-+obj-$(CONFIG_SNORT) += libpcap xz libnfnetlink-configure libnfnetlink libnetfilter_queue-configure libnetfilter_queue libdnet-configure libdnet daq-configure daq pcre-configure pcre nort-configure snort
++obj-$(CONFIG_SNORT) += libpcap xz libnfnetlink-configure libnfnetlink libnetfilter_queue-configure libnetfilter_queue libdnet-configure libdnet daq-configure daq pcre-configure pcre snort-configure snort
  obj-$(CONFIG_LAGUNA) += gsp_updater
  obj-$(CONFIG_VENTANA) += gsp_updater
  obj-$(CONFIG_NEWPORT) += gsp_updater
@@ -326,8 +301,7 @@
  obj-$(CONFIG_NRPE) += nrpe
  obj-$(CONFIG_LINKS) += links
  obj-$(CONFIG_SOFTFLOWD) += softflowd
--obj-$(CONFIG_LIGHTTPD) += pcre lighttpd
-+obj-$(CONFIG_LIGHTTPD) += pcre  lighttpd
+ obj-$(CONFIG_LIGHTTPD) += pcre lighttpd
 +obj-$(CONFIG_NEXTMEDIAEXTRA) += lighttpd
  obj-$(CONFIG_NEXTMEDIAEXTRA) += nextmediaextra
  obj-$(CONFIG_LIBQMI) += libffi zlib glib20 libqmi
