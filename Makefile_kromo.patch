@@ -1,6 +1,6 @@
---- /home/stephan/dd-wrt/src/router/kromo/dd-wrt/Makefile	2021-03-31 23:13:07.900000000 +0200
-+++ Makefile_kromo	2021-03-14 14:27:10.250000000 +0100
-@@ -102,12 +102,12 @@
+--- Makefile.orig	2022-08-11 12:57:43.127036193 +0200
++++ Makefile	2022-08-11 12:57:48.757273535 +0200
+@@ -105,12 +105,12 @@
  	cp hotspotsystem/hotspotsystem.png $(INSTALLDIR)/www/images
  endif
  
