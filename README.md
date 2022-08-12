@@ -2,6 +2,8 @@ Support for lto is not working with these patches at the moment. Needs an additi
 
 Correct building of some of the external kernel modules in Makefile.brcm3x and Makefile.northstar needs some amendments. Already tested, will be uploaded as updated patch, too.
 
+In some of its firmware, DD-WRT has included python3 (i.e. python3.8). As Artix already uses python 3.12, older versions of python, e.g. python3.8, cannot be cross-compiled on Artix for DD-WRT. So I'll try to cross-compile python 3.12. Keep you up-to-date.
+
 # Artix_dd-wrt
 
 #### WARNING:
