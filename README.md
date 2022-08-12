@@ -1,3 +1,7 @@
+Support for lto is not working with these patches at the moment. Needs an additional link within toolchain and a modified patch of common.mk. Alredsy tested, will be uploaded soon.
+
+Correct building of some of the external kernel modules in Makefile.brcm3x and Makefile.northstar needs some amendments. Already tested, will be uploaded as updated patch, too.
+
 # Artix_dd-wrt
 
 #### WARNING:
