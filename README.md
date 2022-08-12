@@ -33,9 +33,8 @@ In some of its firmware, DD-WRT has included python3 (i.e. python3.8). As Artix 
        `tar xvf toolchains.tar.xz <folder of needed toolchain> `
 
    - Download source code of daq-2.0.7 from https://www.snort.org/downloads/archive/snort/daq-2.0.7.tar.gz and install it into a third subfolder of your home directory
-   - Make one of the two shell scripts (build_dd-wrt_arm.sh/build_dd-wrt_mipsel.sh) executable you need for your router model (depending on architecture of CPU of router) .
-   - Please have a look into the shell script, as the path to your local dd-wrt repo is defined in DDWRT_REPO_DIR and the path to your local copy/repo of Artix_dd-wrt is defined in DDWRT_PATCHES_DIR. You should change them to your own needs.
-   - Start the shell script (build_dd-wrt_arm.sh/build_dd-wrt_mipsel.sh). 
+   - Please look at the shell scripts, as the path to your local dd-wrt repo is defined in DDWRT_REPO_DIR and the path to your local copy/repo of Artix_dd-wrt is defined in DDWRT_PATCHES_DIR. You should change them to your own needs.
+   - Start the shell script (build_dd-wrt_arm.sh or build_dd-wrt_mipsel.sh depending on your router cpu). 
 
 ("trx_asus" binary in dd-wrt-repo doesn't work as expected yet, so you have to use appropriate austrx files of Freshtomato- or auswrt-Merlin(John's fork)-repos, located in the ctools folder there. 
 Too, tools/bufenc/makefw.sh for buffalo routers and tools/ubnt/src/mkfwimage for UBIQUITI? routers don't exist, so really the last step in building their firmware cannot be done.)
