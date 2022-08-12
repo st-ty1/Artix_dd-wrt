@@ -19,7 +19,7 @@ After system has booted start typing:
 	/bin/sh5 # nano /etc/conf.d/keymaps 	   (add: keymap="de-latin1")
 	/bin/sh5 # ln –sf /usr/share/zoneinfo/Europe/Berlin /etc/localtime 	(List of all the zones of the world: ls /usr/share/zoneinfo)
 	/bin/sh5 # hwclock --systohc
-	/bin/sh5 # passwd 			   (type your password)
+	/bin/sh5 # passwd 			 (type your password)
 	/bin/sh5 # nano /etc/hostname		 (type any name)
 	/bin/sh5 # ip -s link                	   	(Get the exact name of your interface)
 	/bin/sh5 # nano /etc/conf.d/net         	 (Add config_<interface>="dhcp")
