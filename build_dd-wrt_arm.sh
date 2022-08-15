@@ -8,10 +8,10 @@ export PATH=$HOME/dd-wrt_toolchains/$DDWRT_TC/bin:$PATH
 cd $DDWRT_REPO_DIR
 git clean -dxf && git reset --hard && git checkout master
 #git pull
-
+exit
 clear
 
-rm -rf ../.cache/ccache
+#rm -rf ../.cache/ccache
 
 # directories with wrong position in sources
 ln -s $DDWRT_REPO_DIR/opt $DDWRT_REPO_DIR/src/router/opt

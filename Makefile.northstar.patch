@@ -1,5 +1,38 @@
 --- Makefile.northstar.orig	2022-08-07 15:16:19.018337000 +0200
-+++ Makefile.northstar	2022-08-07 14:13:09.116066000 +0200
++++ Makefile.northstar	2022-08-15 18:35:57.865177125 +0200
+@@ -225,14 +225,15 @@
+ 	-$(MAKE) -f Makefile.northstar batman-adv-install
+ endif
+ ifeq ($(CONFIG_OPENDPI),y)
+-	-$(MAKE) -f Makefile.northstar ndpi-netfilter
+-	-$(MAKE) -f Makefile.northstar ndpi-netfilter-install
++	-$(MAKE) -C ndpi-netfilter
++	-$(MAKE) -C ndpi-netfilter install
+ endif
+ ifeq ($(CONFIG_ZFS),y)
+ 	-$(MAKE) -f Makefile.northstar zfs
+ 	-$(MAKE) -f Makefile.northstar zfs-install
+ endif
+ ifeq ($(CONFIG_SMBD),y)
++	-$(MAKE) -f Makefile.northstar smbd-configure
+ 	-$(MAKE) -f Makefile.northstar smbd
+ 	-$(MAKE) -f Makefile.northstar smbd-install
+ endif
+@@ -241,10 +242,10 @@
+ 	-$(MAKE) -f Makefile.northstar wireguard-install
+ endif
+ ifeq ($(CONFIG_CAKE),y)
+-	-$(MAKE) -f Makefile.northstar cake
+-	-$(MAKE) -f Makefile.northstar cake-install
+-	-$(MAKE) -f Makefile.northstar fq_codel_fast
+-	-$(MAKE) -f Makefile.northstar fq_codel_fast-install
++	-$(MAKE) -C cake
++	-$(MAKE) -C cake install
++	-$(MAKE) -C fq_codel_fast
++	-$(MAKE) -C fq_codel_fast install
+ endif
+ 
+ 	rm -f $(TARGETDIR)/lib/modules/$(KERNELRELEASE)/build
 @@ -346,7 +347,7 @@
  		rm -f $(EX_PATH) ; \
  	fi
