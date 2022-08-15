@@ -1,3 +1,2 @@
-
-- Correct building of some of the external kernel modules in Makefile.northstar needs some amendments. 
-     -> Already tested, will be uploaded as updated patch, too.
+- Some of the external kernel modules in Makefile.northstar, built after the kernel and its modules may still need some amendments for correct building. 
+     -> Have to check this.
