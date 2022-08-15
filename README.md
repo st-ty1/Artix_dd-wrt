@@ -1,16 +1,10 @@
-Support for lto is not working with these patches at the moment. Needs an additional link within toolchain and a modified patch of common.mk. Alredsy tested, will be uploaded soon.
-
-Correct building of some of the external kernel modules in Makefile.brcm3x and Makefile.northstar needs some amendments. Already tested, will be uploaded as updated patch, too.
-
-In some of its firmware, DD-WRT has included python3 (i.e. python3.8). As Artix already uses python 3.12, older versions of python, e.g. python3.8, cannot be cross-compiled on Artix for DD-WRT. So I'll try to cross-compile python 3.12. Keep you up-to-date.
-
 # Artix_dd-wrt
 
 #### WARNING:
 
 -  Don't start, if you are not familiar with both - Arch Linux/Artix and the standard building process of dd-wrt!!
   
--  Don't build on a full-featured Artix host OS (i.e. omit any desktop environment), otherwise you will face additional break errors you have to solve! Use bare Artix instead: native, as a VM or with wsl2/windows. If you need support with VM or wsl2, pls look at https://github.com/st-ty1/Artix_FreshTomato or https://github.com/st-ty1/Artix_Asuswrt-Merlin_John_fork. They include How-Tos for VM and wsl2.
+-  Don't build on a full-featured Artix host OS (i.e. omit any desktop environment), otherwise you will face additional break errors you have to solve! Use bare Artix instead: native, as a VM or with wsl2/windows. How-Tos are included in this repo.
 
 #### How to build dd-wrt (for routers with Broadcom arm-/Broadcom mips-cpu) on Artix host-OS:
 
