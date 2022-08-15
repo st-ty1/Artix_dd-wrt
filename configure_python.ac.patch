@@ -1,15 +1,11 @@
---- configure_python.ac.orig	2022-08-07 15:16:37.995437000 +0200
-+++ configure_python.ac	2022-07-31 14:06:57.374145000 +0200
-@@ -71,9 +71,9 @@
- 	    fi
-             interp=
- 	done
--        if test x$interp = x; then
--	    AC_MSG_ERROR([python$PACKAGE_VERSION interpreter not found])
--	fi
-+ #       if test x$interp = x; then
-+#	    AC_MSG_ERROR([python$PACKAGE_VERSION interpreter not found])
-+#	fi
-         AC_MSG_RESULT($interp)
- 	PYTHON_FOR_BUILD='_PYTHON_PROJECT_BASE=$(abs_builddir) _PYTHON_HOST_PLATFORM=$(_PYTHON_HOST_PLATFORM) PYTHONPATH=$(shell test -f pybuilddir.txt && echo $(abs_builddir)/`cat pybuilddir.txt`:)$(srcdir)/Lib _PYTHON_SYSCONFIGDATA_NAME=_sysconfigdata_$(ABIFLAGS)_$(MACHDEP)_$(MULTIARCH) '$interp
-     fi
+--- configure_python.ac.orig	2022-08-15 15:29:52.964418000 +0200
++++ configure_python.ac	2022-08-14 20:07:18.468019910 +0200
+@@ -64,7 +64,7 @@
+ if test "$cross_compiling" = yes; then
+     AC_MSG_CHECKING([for python interpreter for cross build])
+     if test -z "$PYTHON_FOR_BUILD"; then
+-        for interp in python$PACKAGE_VERSION python3 python; do
++        for interp in python$PACKAGE_VERSION python3 python hostpython; do
+ 	    which $interp >/dev/null 2>&1 || continue
+ 	    if $interp -c "import sys;sys.exit(not '.'.join(str(n) for n in sys.version_info@<:@:2@:>@) == '$PACKAGE_VERSION')"; then
+ 	        break

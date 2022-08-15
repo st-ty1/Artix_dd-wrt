@@ -1,27 +1,41 @@
---- python.mk.orig	2022-08-07 15:16:38.628785000 +0200
-+++ python.mk	2022-07-31 14:15:20.528350000 +0200
-@@ -1,7 +1,8 @@
+--- python.mk.orig	2022-08-15 15:29:53.317756000 +0200
++++ python.mk	2022-08-15 15:14:56.864751303 +0200
+@@ -1,11 +1,14 @@
  python-configure: libffi-configure libffi libffi-install zlib
  #	cd python && cp Modules/Setup Modules/Setup
++	cd python && CC=gcc ./configure CFLAGS="" LDFLAGS=""
++	export CC=gcc && export LD=ld && export CFLAGS=-O2 && make -C python python
++	cd python && mv python hostpython
 +	cd python && chmod 755 setup.py
  	cd python && echo "# bogus" > Modules/Setup.local 
 -	cd python && ./configure  --host=$(ARCH)-linux --build=$(ARCH) --sysconfdir=/etc \
-+	cd python && autoreconf -fi && ./configure  --host=$(ARCH)-linux --build=$(ARCH) --sysconfdir=/etc \
++	cd python && autoreconf -fi && ./configure --host=$(ARCH)-linux --build=$(ARCH) --sysconfdir=/etc \
  		--enable-shared \
  		--enable-static \
  		--prefix=/usr \
-@@ -33,11 +34,12 @@
+-		--enable-optimizations \
+ 		--disable-profiling \
+ 		--without-cxx-main \
+ 		--with-system-ffi="$(INSTALLDIR)/libffi/usr" \
+@@ -26,18 +29,17 @@
+ 		ac_cv_has_x509_verify_param_set1_host=yes
+ 
+ 
+-
+ python-clean:
+ 	make -C python clean
+ 
  python: libffi zlib
  	make -C libffi install DESTDIR=$(INSTALLDIR)/libffi
- 	make -C python python Parser/pgen
+-	make -C python python Parser/pgen
 -	make -C python sharedmods
-+#	make -C python sharedmods
++	 PATH=$(PATH):$(TOP)/python make -C python python
++	 PATH=$(PATH):$(TOP)/python make -C python sharedmods
  
  python-install:
  	make -C libffi install DESTDIR=$(INSTALLDIR)/libffi
 -	make -C python install DESTDIR=$(INSTALLDIR)/python
-+#	make -C python install DESTDIR=$(INSTALLDIR)/python
-+	make -C python bininstall libinstall DESTDIR=$(INSTALLDIR)/python
++	 PATH=$(PATH):$(TOP)/python make -C python install DESTDIR=$(INSTALLDIR)/python
  	cd $(INSTALLDIR)/python/usr/bin && ln -sf /usr/bin/python3 python
  	rm -rf $(INSTALLDIR)/python/usr/include
  	rm -rf $(INSTALLDIR)/python/usr/share

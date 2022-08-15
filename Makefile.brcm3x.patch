@@ -1,5 +1,5 @@
---- Makefile.brcm3x.orig	2022-08-05 15:43:46.855079000 +0200
-+++ Makefile.brcm3x	2022-08-07 14:16:26.595899000 +0200
+--- Makefile.brcm3x.orig	2022-08-15 15:29:50.434378000 +0200
++++ Makefile.brcm3x	2022-08-12 20:34:20.747057919 +0200
 @@ -133,7 +133,7 @@
  # Basic rules
  #
@@ -9,3 +9,69 @@
  
  include kernel-features.mk
  
+@@ -217,18 +217,19 @@
+ #	-$(MAKE) -f Makefile.brcm3x emf
+ #	-$(MAKE) -f Makefile.brcm3x emf-install
+ ifeq ($(CONFIG_NTFS3G),y)
+-	-$(MAKE) -f Makefile.brcm3x antfs
+-	-$(MAKE) -f Makefile.brcm3x antfs-install
++	-$(MAKE) -C antfs
++	-$(MAKE) -C antfs install
+ endif
+ ifeq ($(CONFIG_BATMANADV),y)
+ 	-$(MAKE) -f Makefile.brcm3x batman-adv
+ 	-$(MAKE) -f Makefile.brcm3x batman-adv-install
+ endif
+ ifeq ($(CONFIG_OPENDPI),y)
+-	-$(MAKE) -f Makefile.brcm3x ndpi-netfilter
+-	-$(MAKE) -f Makefile.brcm3x ndpi-netfilter-install
++	-$(MAKE) -C ndpi-netfilter
++	-$(MAKE) -C ndpi-netfilter install
+ endif
+ ifeq ($(CONFIG_SMBD),y)
++	-$(MAKE) -f Makefile.brcm3x smbd-configure
+ 	-$(MAKE) -f Makefile.brcm3x smbd
+ 	-$(MAKE) -f Makefile.brcm3x smbd-install
+ endif
+@@ -239,10 +240,10 @@
+ 	-$(MAKE) -f Makefile.brcm3x uniwip-gpio
+ 	-$(MAKE) -f Makefile.brcm3x uniwip-gpio-install
+ ifeq ($(CONFIG_CAKE),y)
+-	-$(MAKE) -f Makefile.brcm3x cake
+-	-$(MAKE) -f Makefile.brcm3x cake-install
+-	-$(MAKE) -f Makefile.brcm3x fq_codel_fast
+-	-$(MAKE) -f Makefile.brcm3x fq_codel_fast-install
++	-$(MAKE) -C cake
++	-$(MAKE) -C cake install
++	-$(MAKE) -C fq_codel_fast
++	-$(MAKE) -C fq_codel_fast install
+ endif
+ 
+ ifneq ($(CONFIG_USB),y)
+@@ -328,7 +329,7 @@
+ 	$(MAKE) -j 4 -C $(LINUXDIR) vmlinux EXTRA_LDSFLAGS="-I$(LINUXDIR) -include symtab.h" CROSS_COMPILE="ccache $(ARCH)-linux-uclibc-"  KBUILD_MODPOST_WARN=1
+ 
+ 	$(ARCH)-linux-objcopy -O binary $(strip-flags) -g $(LINUXDIR)/vmlinux $(ARCH)-uclibc/vmlinus 
+-	cat $(ARCH)-uclibc/vmlinus | lzma e -si -so -eos -lc2 -lp2 -pb2 -d25 > lzma-loader/broadcom/vmlinux.lzma
++#	cat $(ARCH)-uclibc/vmlinus | lzma e -si -so -eos -lc2 -lp2 -pb2 -d25 > lzma-loader/broadcom/vmlinux.lzma
+ 	gzip -9 -c $(ARCH)-uclibc/vmlinus > $(ARCH)-uclibc/vmlinus.gzip
+ 	make -C lzma-loader/broadcom clean
+ 	make -C lzma-loader/broadcom 
+@@ -647,7 +648,7 @@
+ 	export STRIP="sstrip" && \
+ 	$(LINUXDIR)/scripts/rstrip.sh $(TARGETDIR)
+ 	$(TOP)/../../tools/removewhitespace.sh $(TOP)/../../tools $(TARGETDIR)/etc/config
+-	$(LINUXDIR)/scripts/squashfs/mksquashfs4 $(ARCH)-uclibc/target $(ARCH)-uclibc/rootfs.squashfs -comp xz -nopad  -root-owned -noappend -b 262144
++	mksquashfs $(ARCH)-uclibc/target $(ARCH)-uclibc/rootfs.squashfs -comp xz -nopad  -root-owned -noappend -b 262144
+ #	$(LINUXDIR)/scripts/squashfs/mksquashfs-lzma $(ARCH)-uclibc/target $(ARCH)-uclibc/rootfs.squashfs -noappend -root-owned -le
+ #	$(MAKE) -C compressed clean
+ #	$(MAKE) -C compressed
+@@ -822,7 +823,7 @@
+ 	cp $(ARCH)-uclibc/dd-wrt.v24-K3_R6300.trx $(ARCH)-uclibc/dd-wrt.v24-K3_WNR3500Lv2.bin
+ 
+ 
+-	cd $(ARCH)-uclibc && ../tools/bufenc/makefw.sh dd-wrt.v24-K3-nandboot
++#	cd $(ARCH)-uclibc && ../tools/bufenc/makefw.sh dd-wrt.v24-K3-nandboot
+ # end special
+ 
+ #&& rm -f kernel_image.chk rootfs_image.chk dd-wrt.bin.chk

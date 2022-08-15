@@ -20,13 +20,19 @@ cd $HOME/dd-wrt_toolchains/$DDWRT_TC/bin
 ln -snf arm-openwrt-linux-muslgnueabi-gcc-ar arm-linux-uclibc-gcc-ar
 ln -snf arm-openwrt-linux-muslgnueabi-gcc-nm arm-linux-uclibc-gcc-nm
 
-cd ..
+cd $HOME/dd-wrt_toolchains/$DDWRT_TC
 ln -snf lib lib64
 ln -snf lib lib32
 ln -snf arm-openwrt-linux-muslgnueabi arm-openwrt-linux
-cd arm-openwrt-linux-muslgnueabi
+cd $HOME/dd-wrt_toolchains/$DDWRT_TC/arm-openwrt-linux-muslgnueabi
 ln -snf ../include sys-include
 ln -snf ../lib lib
+mkdir $HOME/dd-wrt_toolchains/$DDWRT_TC/lib/bfd-plugins
+ln -nsf $HOME/dd-wrt_toolchains/$DDWRT_TC/lib/gcc/mipsel-openwrt-linux-musl/*/liblto_plugin.so $HOME/dd-wrt_toolchains/$DDWRT_TC/lib/bfd-plugins/liblto_plugin.so
+
+# build missing tools
+gcc $DDWRT_REPO_DIR/opt/tools/trx_n.c -o $DDWRT_REPO_DIR/opt/tools/trx
+gcc --std=gnu89 $DDWRT_PATCHES_DIR/trx_asus.c -o $DDWRT_REPO_DIR/src/router/tools/trx_asus	
 
 # clean sources from disturbing files
 rm -f $DDWRT_REPO_DIR/src/router/minidlna/ffmpeg-3.1/config.mak

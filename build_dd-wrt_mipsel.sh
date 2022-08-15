@@ -14,20 +14,26 @@ clear
 rm -rf ../.cache/ccache
 
 # directories with wrong position in sources
-ln -s $DDWRT_REPO_DIR/opt $DDWRT_REPO_DIR/src/router/opt
+ln -nsf $DDWRT_REPO_DIR/opt $DDWRT_REPO_DIR/src/router/opt
 
 cd $HOME/dd-wrt_toolchains/$DDWRT_TC/bin
-ln -s mipsel-openwrt-linux-musl-as mipsel-linux-uclibc-as
-ln -s mipsel-openwrt-linux-musl-gcc-ar mipsel-linux-uclibc-gcc-ar
-ln -s mipsel-openwrt-linux-musl-gcc-nm mipsel-linux-uclibc-gcc-nm
+ln -nsf mipsel-openwrt-linux-musl-as mipsel-linux-uclibc-as
+ln -nsf mipsel-openwrt-linux-musl-gcc-ar mipsel-linux-uclibc-gcc-ar
+ln -nsf mipsel-openwrt-linux-musl-gcc-nm mipsel-linux-uclibc-gcc-nm
 
-cd ..
+cd $HOME/dd-wrt_toolchains/$DDWRT_TC
 ln -snf lib lib64
 ln -snf lib lib32
 ln -snf mipsel-openwrt-linux-musl mipsel-openwrt-linux
-cd mipsel-openwrt-linux-musl
+cd $HOME/dd-wrt_toolchains/$DDWRT_TC/mipsel-openwrt-linux-musl
 ln -snf ../include sys-include
 ln -snf ../lib lib
+mkdir $HOME/dd-wrt_toolchains/$DDWRT_TC/lib/bfd-plugins
+ln -nsf $HOME/dd-wrt_toolchains/$DDWRT_TC/lib/gcc/mipsel-openwrt-linux-musl/*/liblto_plugin.so $HOME/dd-wrt_toolchains/$DDWRT_TC/lib/bfd-plugins/liblto_plugin.so
+ 
+# build missing tools
+gcc $DDWRT_REPO_DIR/opt/tools/trx.c -o $DDWRT_REPO_DIR/opt/tools/trx
+gcc --std=gnu89 $DDWRT_PATCHES_DIR/trx_asus.c -o $DDWRT_REPO_DIR/src/router/tools/trx_asus
 
 # clean sources from disturbing files
 rm -f $DDWRT_REPO_DIR/src/router/minidlna/ffmpeg-3.1/config.mak

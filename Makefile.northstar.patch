@@ -1,15 +1,5 @@
 --- Makefile.northstar.orig	2022-08-07 15:16:19.018337000 +0200
 +++ Makefile.northstar	2022-08-07 14:13:09.116066000 +0200
-@@ -147,7 +147,8 @@
- obj-install := $(foreach obj,$(obj-y),$(obj)-install)
- obj-distclean := $(foreach obj,$(obj-y) $(obj-n),$(obj)-distclean)
- 
--all: install_headers build_date clean_target $(obj-y) $(LINUXDIR)/.config kernel
-+#all: install_headers build_date clean_target $(obj-y) $(LINUXDIR)/.config kernel
-+all: install_headers build_date kernel $(obj-y)
- 
- build_date:
- 	echo "#define BUILD_DATE \"$(shell date +%D)\"" > ../../opt/build.h 
 @@ -346,7 +347,7 @@
  		rm -f $(EX_PATH) ; \
  	fi
@@ -28,98 +18,6 @@
  #	$(LINUXDIR)/scripts/squashfs/mksquashfs-lzma $(ARCH)-uclibc/target $(ARCH)-uclibc/root.fs -noappend -root-owned -le
  	mkfs.jffs2 --pad --big-endian --squash -e 0x20000 -o $(ARCH)-uclibc/dd-wrt.jffs2 -d $(ARCH)-uclibc/target
  	tools/lzma_4k e $(LINUXDIR)/arch/arm/boot/zImage $(ARCH)-uclibc/vmlinuz.lzma
-@@ -505,14 +506,14 @@
- #	./tools/trx -m 32000000 -o $(ARCH)-uclibc/northstar-firmware-jffs2.bin $(ARCH)-uclibc/vmlinuz.lzma $(ARCH)-uclibc/dd-wrt.jffs2
- 	dd if=/dev/zero of=$(ARCH)-uclibc/pad bs=65536 count=1
- 	cat $(ARCH)-uclibc/pad >> $(ARCH)-uclibc/root.fs
--	./tools/trx -m 40000000 -o $(ARCH)-uclibc/northstar-firmware-squashfs.bin $(ARCH)-uclibc/vmlinuz.lzma -a 131072 $(ARCH)-uclibc/root.fs
--	./tools/trx -m 40000000 -o tools/tplink/kernel.hdr0 $(ARCH)-uclibc/vmlinuz.lzma
--	cd tools/tplink && ./mktplinkfw3 -B ARCHERC9 -k kernel.hdr0 -r ../../arm-uclibc/root.fs -o ../../$(ARCH)-uclibc/archerc9.bin
--	cd tools/tplink && ./mktplinkfw3 -B ARCHERC9v2 -k kernel.hdr0 -r ../../arm-uclibc/root.fs -o ../../$(ARCH)-uclibc/archerc9v2.bin
--	cd tools/tplink && ./mktplinkfw3 -B ARCHERC1900 -k kernel.hdr0 -r ../../arm-uclibc/root.fs -o ../../$(ARCH)-uclibc/archerc1900.bin
--	cd tools/tplink && ./mktplinkfw3 -B ARCHERC8 -k kernel.hdr0 -r ../../arm-uclibc/root.fs -o ../../$(ARCH)-uclibc/archerc8.bin
--	cd tools/tplink && ./mktplinkfw3 -B ARCHERC8v2 -k kernel.hdr0 -r ../../arm-uclibc/root.fs -o ../../$(ARCH)-uclibc/archerc8_v2.bin
--	cd tools/tplink && ./mktplinkfw3 -B ARCHERC8v3 -k kernel.hdr0 -r ../../arm-uclibc/root.fs -o ../../$(ARCH)-uclibc/archerc8_v3.bin
-+	$(TOP)/../../tools/trx -m 40000000 -o $(ARCH)-uclibc/northstar-firmware-squashfs.bin $(ARCH)-uclibc/vmlinuz.lzma -a 131072 $(ARCH)-uclibc/root.fs
-+	-$(TOP)/../../tools/trx -m 40000000 -o tools/tplink/kernel.hdr0 $(ARCH)-uclibc/vmlinuz.lzma
-+	-cd tools/tplink && ./mktplinkfw3 -B ARCHERC9 -k kernel.hdr0 -r ../../arm-uclibc/root.fs -o ../../$(ARCH)-uclibc/archerc9.bin
-+	-cd tools/tplink && ./mktplinkfw3 -B ARCHERC9v2 -k kernel.hdr0 -r ../../arm-uclibc/root.fs -o ../../$(ARCH)-uclibc/archerc9v2.bin
-+	-cd tools/tplink && ./mktplinkfw3 -B ARCHERC1900 -k kernel.hdr0 -r ../../arm-uclibc/root.fs -o ../../$(ARCH)-uclibc/archerc1900.bin
-+	-cd tools/tplink && ./mktplinkfw3 -B ARCHERC8 -k kernel.hdr0 -r ../../arm-uclibc/root.fs -o ../../$(ARCH)-uclibc/archerc8.bin
-+	-cd tools/tplink && ./mktplinkfw3 -B ARCHERC8v2 -k kernel.hdr0 -r ../../arm-uclibc/root.fs -o ../../$(ARCH)-uclibc/archerc8_v2.bin
-+	-cd tools/tplink && ./mktplinkfw3 -B ARCHERC8v3 -k kernel.hdr0 -r ../../arm-uclibc/root.fs -o ../../$(ARCH)-uclibc/archerc8_v3.bin
- 
- 	-./tools/safeloader/tplink-safeloader -B ARCHER-C9-V3 -V 1 -k tools/tplink/kernel.hdr0 -r $(ARCH)-uclibc/root.fs -o $(ARCH)-uclibc/tplink-ARCHER-C9-v3-firmware.bin
- #	-./tools/safeloader/tplink-safeloader -B ARCHER-C9-V3 -V 1 -S -k $(ARCH)-uclibc/kernel.hdr0 -r $(ARCH)-uclibc/root.fs -o $(ARCH)-uclibc/archerC9v3_tp_recovery.bin
-@@ -525,7 +526,7 @@
- 	./tools/seama/seama -s $(ARCH)-uclibc/web-dir868.img -i $(ARCH)-uclibc/raw-dir868.img.seama -m signature=wrgac02_dlob.hans_dir868
- 	./tools/seama/seama -d $(ARCH)-uclibc/web-dir868.img
- 	dd if=$(ARCH)-uclibc/web-dir868.img of=$(ARCH)-uclibc/webflash-dir868.img skip=48 iflag=skip_bytes 
--	./tools/trx_n -m 40000000 -o $(ARCH)-uclibc/webflash-dir868.trx $(ARCH)-uclibc/webflash-dir868.img
-+	-./tools/trx_n -m 40000000 -o $(ARCH)-uclibc/webflash-dir868.trx $(ARCH)-uclibc/webflash-dir868.img
- 
- 
- 	./tools/seama/packimgs -b 64 -o $(ARCH)-uclibc/raw-dir868b.img -i $(ARCH)-uclibc/vmlinuz.lzma -i $(ARCH)-uclibc/root.fs
-@@ -533,14 +534,14 @@
- 	./tools/seama/seama -s $(ARCH)-uclibc/web-dir868b.img -i $(ARCH)-uclibc/raw-dir868b.img.seama -m signature=wrgac02_dlink.2013gui_dir868lb
- 	./tools/seama/seama -d $(ARCH)-uclibc/web-dir868b.img
- 	dd if=$(ARCH)-uclibc/web-dir868b.img of=$(ARCH)-uclibc/webflash-dir868b.img skip=56 iflag=skip_bytes 
--	./tools/trx_n -m 40000000 -o $(ARCH)-uclibc/webflash-dir868b.trx $(ARCH)-uclibc/webflash-dir868b.img
-+	-./tools/trx_n -m 40000000 -o $(ARCH)-uclibc/webflash-dir868b.trx $(ARCH)-uclibc/webflash-dir868b.img
- 
- 	./tools/seama/packimgs -b 64 -o $(ARCH)-uclibc/raw-dir868c.img -i $(ARCH)-uclibc/vmlinuz.lzma -i $(ARCH)-uclibc/root.fs
- 	./tools/seama/seama -i $(ARCH)-uclibc/raw-dir868c.img -m dev=/dev/mtdblock/7 -m type=firmware 
- 	./tools/seama/seama -s $(ARCH)-uclibc/web-dir868c.img -i $(ARCH)-uclibc/raw-dir868c.img.seama -m signature=wrgac35_dlink.2013gui_dir868lc
- 	./tools/seama/seama -d $(ARCH)-uclibc/web-dir868c.img
- 	dd if=$(ARCH)-uclibc/web-dir868c.img of=$(ARCH)-uclibc/webflash-dir868c.img skip=56 iflag=skip_bytes 
--	./tools/trx_n -m 40000000 -o $(ARCH)-uclibc/webflash-dir868c.trx $(ARCH)-uclibc/webflash-dir868c.img
-+	-./tools/trx_n -m 40000000 -o $(ARCH)-uclibc/webflash-dir868c.trx $(ARCH)-uclibc/webflash-dir868c.img
- 
- 
- 	./tools/seama/packimgs -b 64 -o $(ARCH)-uclibc/raw-dir860.img -i $(ARCH)-uclibc/vmlinuz.lzma -i $(ARCH)-uclibc/root.fs
-@@ -548,14 +549,14 @@
- 	./tools/seama/seama -s $(ARCH)-uclibc/web-dir860.img -i $(ARCH)-uclibc/raw-dir860.img.seama -m signature=wrgac03_dlob.hans_dir860
- 	./tools/seama/seama -d $(ARCH)-uclibc/web-dir860.img
- 	dd if=$(ARCH)-uclibc/web-dir860.img of=$(ARCH)-uclibc/webflash-dir860.img skip=48 iflag=skip_bytes 
--	./tools/trx_n -m 40000000 -o $(ARCH)-uclibc/webflash-dir860.trx $(ARCH)-uclibc/webflash-dir860.img
-+	-./tools/trx_n -m 40000000 -o $(ARCH)-uclibc/webflash-dir860.trx $(ARCH)-uclibc/webflash-dir860.img
- 
- 	./tools/seama/packimgs -b 64 -o $(ARCH)-uclibc/raw-dir890.img -i $(ARCH)-uclibc/vmlinuz.lzma -i $(ARCH)-uclibc/root.fs
- 	./tools/seama/seama -i $(ARCH)-uclibc/raw-dir890.img -m dev=/dev/mtdblock/7 -m type=firmware 
- 	./tools/seama/seama -s $(ARCH)-uclibc/web-dir890.img -i $(ARCH)-uclibc/raw-dir890.img.seama -m signature=wrgac36_dlink.2013gui_dir890
- 	./tools/seama/seama -d $(ARCH)-uclibc/web-dir890.img
- 	dd if=$(ARCH)-uclibc/web-dir890.img of=$(ARCH)-uclibc/webflash-dir890.img skip=52 iflag=skip_bytes 
--	./tools/trx_n -m 40000000 -o $(ARCH)-uclibc/webflash-dir890.trx $(ARCH)-uclibc/webflash-dir890.img
-+	-./tools/trx_n -m 40000000 -o $(ARCH)-uclibc/webflash-dir890.trx $(ARCH)-uclibc/webflash-dir890.img
- 
- 
- 	./tools/seama/packimgs -b 64 -o $(ARCH)-uclibc/raw-dir885.img -i $(ARCH)-uclibc/vmlinuz.lzma -i $(ARCH)-uclibc/root.fs
-@@ -563,14 +564,14 @@
- 	./tools/seama/seama -s $(ARCH)-uclibc/web-dir885.img -i $(ARCH)-uclibc/raw-dir885.img.seama -m signature=wrgac42_dlink.2015_dir885l
- 	./tools/seama/seama -d $(ARCH)-uclibc/web-dir885.img
- 	dd if=$(ARCH)-uclibc/web-dir885.img of=$(ARCH)-uclibc/webflash-dir885.img skip=52 iflag=skip_bytes 
--	./tools/trx_n -m 40000000 -o $(ARCH)-uclibc/webflash-dir885.trx $(ARCH)-uclibc/webflash-dir885.img
-+	-./tools/trx_n -m 40000000 -o $(ARCH)-uclibc/webflash-dir885.trx $(ARCH)-uclibc/webflash-dir885.img
- 
- 	./tools/seama/packimgs -b 64 -o $(ARCH)-uclibc/raw-dir895.img -i $(ARCH)-uclibc/vmlinuz.lzma -i $(ARCH)-uclibc/root.fs
- 	./tools/seama/seama -i $(ARCH)-uclibc/raw-dir895.img -m dev=/dev/mtdblock/7 -m type=firmware 
- 	./tools/seama/seama -s $(ARCH)-uclibc/web-dir895.img -i $(ARCH)-uclibc/raw-dir895.img.seama -m signature=wrgac40_dlink.2015_dir895l
- 	./tools/seama/seama -d $(ARCH)-uclibc/web-dir895.img
- 	dd if=$(ARCH)-uclibc/web-dir895.img of=$(ARCH)-uclibc/webflash-dir895.img skip=52 iflag=skip_bytes 
--	./tools/trx_n -m 40000000 -o $(ARCH)-uclibc/webflash-dir895.trx $(ARCH)-uclibc/webflash-dir895.img
-+	-./tools/trx_n -m 40000000 -o $(ARCH)-uclibc/webflash-dir895.trx $(ARCH)-uclibc/webflash-dir895.img
- 
- 
- 	./tools/seama/packimgs -b 64 -o $(ARCH)-uclibc/raw-dir880.img -i $(ARCH)-uclibc/vmlinuz.lzma -i $(ARCH)-uclibc/root.fs
-@@ -578,7 +579,7 @@
- 	./tools/seama/seama -s $(ARCH)-uclibc/web-dir880.img -i $(ARCH)-uclibc/raw-dir880.img.seama -m signature=wrgac16_dlink.2013gui_dir880
- 	./tools/seama/seama -d $(ARCH)-uclibc/web-dir880.img
- 	dd if=$(ARCH)-uclibc/web-dir880.img of=$(ARCH)-uclibc/webflash-dir880.img skip=52 iflag=skip_bytes 
--	./tools/trx_n -m 40000000 -o $(ARCH)-uclibc/webflash-dir880.trx $(ARCH)-uclibc/webflash-dir880.img
-+	-./tools/trx_n -m 40000000 -o $(ARCH)-uclibc/webflash-dir880.trx $(ARCH)-uclibc/webflash-dir880.img
- 
- 	
- 	-./tools/trx_asus -i $(ARCH)-uclibc/northstar-firmware-squashfs.bin -r RT-AC56U,3.0.0.4,380,760,$(ARCH)-uclibc/asus_rt-ac56u-firmware.trx
 @@ -595,7 +596,7 @@
  #	-./tools/trx_asus3 -i $(ARCH)-uclibc/northstar-firmware-squashfs.bin -r RT-AC1200G+,3.0.0.4,380,1234,$(ARCH)-uclibc/asus_rt-ac1200gp-firmware.trx3
  
