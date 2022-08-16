@@ -1,14 +1,15 @@
 #! /bin/sh
-
+### variables which can be configured by user
 DDWRT_TC=toolchain-mipsel_74kc_gcc-8.2.0_musl
 DDWRT_PATCHES_DIR=$HOME/Artix_dd-wrt
 DDWRT_REPO_DIR=$HOME/dd-wrt
+####
+
 export PATH=$HOME/dd-wrt_toolchains/$DDWRT_TC/bin:$PATH
 
 cd $DDWRT_REPO_DIR
 git clean -dxf && git reset --hard && git checkout master
 #git pull
-
 clear
 
 rm -rf ../.cache/ccache
@@ -92,7 +93,7 @@ patch -i $DDWRT_PATCHES_DIR/libevent.mk.patch $DDWRT_REPO_DIR/src/router/rules/l
 patch -i $DDWRT_PATCHES_DIR/libtalloc.mk.patch $DDWRT_REPO_DIR/src/router/rules/libtalloc.mk
 patch -i $DDWRT_PATCHES_DIR/transmission.mk.patch $DDWRT_REPO_DIR/src/router/rules/transmission.mk
 
-#whitespace missing 
+# whitespace missing 
 patch -i $DDWRT_PATCHES_DIR/pptpd.mk.patch $DDWRT_REPO_DIR/src/router/rules/pptpd.mk
 
 patch -i $DDWRT_PATCHES_DIR/configure_asterisk.ac.patch $DDWRT_REPO_DIR/src/router/asterisk/configure.ac
@@ -125,12 +126,12 @@ patch -p1 -d $DDWRT_REPO_DIR/src/router/vpnc/libgpg-error < $DDWRT_PATCHES_DIR/l
 
 patch -i $DDWRT_PATCHES_DIR/local.mk.patch $DDWRT_REPO_DIR/src/router/olsrd/src/cfgparser/local.mk
 
-#has "C11" error; so new daq-source needed and again already patch
+# has "C11" error; so new daq-source needed and again already patch
 cp -rf $HOME/daq-2.0.7/* $DDWRT_REPO_DIR/src/router/daq/
 patch -p1 -d $DDWRT_REPO_DIR/src/router/daq < $DDWRT_PATCHES_DIR/daq_Fix_musl_lib.patch
 patch -i $DDWRT_PATCHES_DIR/daq.mk.patch $DDWRT_REPO_DIR/src/router/rules/daq.mk
 
-#samba3.6 patches
+# samba3.6 patches
 patch -i $DDWRT_PATCHES_DIR/samba36_autogen.sh.patch $DDWRT_REPO_DIR/src/router/samba36/source3/autogen.sh
 patch -i $DDWRT_PATCHES_DIR/samba36_libreplace_cc.m4.patch $DDWRT_REPO_DIR/src/router/samba36/lib/replace/libreplace_cc.m4
 patch -i $DDWRT_PATCHES_DIR/samba3.mk.patch $DDWRT_REPO_DIR/src/router/rules/samba3.mk  
@@ -139,11 +140,11 @@ patch -i $DDWRT_PATCHES_DIR/samba3.mk.patch $DDWRT_REPO_DIR/src/router/rules/sam
 patch -i $DDWRT_PATCHES_DIR/configure_transmission.ac.patch $DDWRT_REPO_DIR/src/router/transmission/configure.ac
 patch -i $DDWRT_PATCHES_DIR/Makefile_transmission_daemon.am.patch $DDWRT_REPO_DIR/src/router/transmission/daemon/Makefile.am
 
-#softether patches
+# softether patches
 patch -i $DDWRT_PATCHES_DIR/softether.mk.patch $DDWRT_REPO_DIR/src/router/rules/softether.mk
 patch -i $DDWRT_PATCHES_DIR/CMakeLists_softether_src.txt.patch $DDWRT_REPO_DIR/src/router/softether/src/CMakeLists.txt
 
-# modified mk-files for make install
+# modified .mk files for make install
 patch -i $DDWRT_PATCHES_DIR/minidlna.mk.patch $DDWRT_REPO_DIR/src/router/rules/minidlna.mk
 
 cd $DDWRT_REPO_DIR/src/router
