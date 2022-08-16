@@ -50,11 +50,12 @@ patch -p1 -d $DDWRT_REPO_DIR/src/router/config < $DDWRT_PATCHES_DIR/config_gcc10
 
 patch -i $DDWRT_PATCHES_DIR/configs.mk.patch $DDWRT_REPO_DIR/src/router/rules/configs.mk
 
-## disable lto; not working
+## for lto working
 patch -i $DDWRT_PATCHES_DIR/common.mk.patch $DDWRT_REPO_DIR/src/router/common.mk
 
 ## Comment out Ralink drivers not used by mipsel-router
-patch -i $DDWRT_PATCHES_DIR/Kconfig.patch $DDWRT_REPO_DIR/src/linux/universal/linux-4.4/drivers/net/wireless/Kconfig	
+patch -i $DDWRT_PATCHES_DIR/Kconfig.patch $DDWRT_REPO_DIR/src/linux/universal/linux-4.4/drivers/net/wireless/Kconfig
+
 patch -i $DDWRT_PATCHES_DIR/.config_std_noac.patch $DDWRT_REPO_DIR/src/linux/universal/linux-4.4/.config_std_noac
 patch -i  $DDWRT_PATCHES_DIR/Makefile_linux-4.4.patch $DDWRT_REPO_DIR/src/linux/universal/linux-4.4/Makefile
 	
@@ -68,16 +69,13 @@ patch -i $DDWRT_PATCHES_DIR/libcares.mk.patch $DDWRT_REPO_DIR/src/router/rules/l
 patch -i $DDWRT_PATCHES_DIR/krb5.mk.patch $DDWRT_REPO_DIR/src/router/rules/krb5.mk
 patch -i $DDWRT_PATCHES_DIR/avahi.mk.patch $DDWRT_REPO_DIR/src/router/rules/avahi.mk
 patch -i $DDWRT_PATCHES_DIR/python.mk.patch $DDWRT_REPO_DIR/src/router/rules/python.mk
-## autoconf can only check for python <3.10; host-OS has python >3.10
 patch -i $DDWRT_PATCHES_DIR/configure_python.ac.patch $DDWRT_REPO_DIR/src/router/python/configure.ac
 patch -i $DDWRT_PATCHES_DIR/Makefile_mactelnet.patch $DDWRT_REPO_DIR/src/router/mactelnet/Makefile
 patch -i $DDWRT_PATCHES_DIR/aircrack-ng.mk.patch $DDWRT_REPO_DIR/src/router/rules/aircrack-ng.mk
 patch -i $DDWRT_PATCHES_DIR/snort.mk.patch $DDWRT_REPO_DIR/src/router/rules/snort.mk
-
 #patch -i $DDWRT_PATCHES_DIR/btrfsprogs.mk.patch $DDWRT_REPO_DIR/src/router/rules/btrfsprogs.mk
 #patch -i $DDWRT_PATCHES_DIR/configure_btrfsprogs.ac.patch $DDWRT_REPO_DIR/src/router/btrfsprogs/configure.ac
 
-##several code changed
 patch -i $DDWRT_PATCHES_DIR/ntfs-3g.mk.patch $DDWRT_REPO_DIR/src/router/rules/ntfs-3g.mk
 
 ##disable conntrack and iptables-new-clean target
@@ -85,7 +83,6 @@ patch -i $DDWRT_PATCHES_DIR/iptables-new.mk.patch $DDWRT_REPO_DIR/src/router/rul
 ##others: corrected paths to libs, ...
 patch -i $DDWRT_PATCHES_DIR/util-linux.mk.patch $DDWRT_REPO_DIR/src/router/rules/util-linux.mk
 patch -i $DDWRT_PATCHES_DIR/igmp-proxy.mk.patch $DDWRT_REPO_DIR/src/router/rules/igmp-proxy.mk
-
 
 patch -i $DDWRT_PATCHES_DIR/sqlite.mk.patch $DDWRT_REPO_DIR/src/router/rules/sqlite.mk
 
