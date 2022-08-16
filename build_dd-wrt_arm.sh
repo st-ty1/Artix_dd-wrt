@@ -1,17 +1,17 @@
 #! /bin/sh
-
+### variables which can be configured by user
 DDWRT_TC=toolchain-arm_cortex-a9_gcc-10.0.1_musl_eabi
 DDWRT_PATCHES_DIR=$HOME/Artix_dd-wrt
 DDWRT_REPO_DIR=$HOME/dd-wrt
+###
 export PATH=$HOME/dd-wrt_toolchains/$DDWRT_TC/bin:$PATH
 
 cd $DDWRT_REPO_DIR
 git clean -dxf && git reset --hard && git checkout master
 #git pull
-exit
 clear
 
-#rm -rf ../.cache/ccache
+rm -rf ../.cache/ccache
 
 # directories with wrong position in sources
 ln -s $DDWRT_REPO_DIR/opt $DDWRT_REPO_DIR/src/router/opt
@@ -49,7 +49,7 @@ patch -p1 -d $DDWRT_REPO_DIR/src/router/config < $DDWRT_PATCHES_DIR/config_gcc10
 
 patch -i $DDWRT_PATCHES_DIR/configs.mk.patch $DDWRT_REPO_DIR/src/router/rules/configs.mk
 
-## disable lto; not working
+## for lto working
 patch -i $DDWRT_PATCHES_DIR/common.mk.patch $DDWRT_REPO_DIR/src/router/common.mk
 
 ## Comment out Ralink drivers not used by mipsel-router
@@ -65,16 +65,13 @@ patch -i $DDWRT_PATCHES_DIR/libcares.mk.patch $DDWRT_REPO_DIR/src/router/rules/l
 patch -i $DDWRT_PATCHES_DIR/krb5.mk.patch $DDWRT_REPO_DIR/src/router/rules/krb5.mk
 patch -i $DDWRT_PATCHES_DIR/avahi.mk.patch $DDWRT_REPO_DIR/src/router/rules/avahi.mk
 patch -i $DDWRT_PATCHES_DIR/python.mk.patch $DDWRT_REPO_DIR/src/router/rules/python.mk
-## autoconf can only check for python <3.10; host-OS has python >3.10
 patch -i $DDWRT_PATCHES_DIR/configure_python.ac.patch $DDWRT_REPO_DIR/src/router/python/configure.ac
 patch -i $DDWRT_PATCHES_DIR/Makefile_mactelnet.patch $DDWRT_REPO_DIR/src/router/mactelnet/Makefile
 patch -i $DDWRT_PATCHES_DIR/aircrack-ng.mk.patch $DDWRT_REPO_DIR/src/router/rules/aircrack-ng.mk
 patch -i $DDWRT_PATCHES_DIR/snort.mk.patch $DDWRT_REPO_DIR/src/router/rules/snort.mk
-
 #patch -i $DDWRT_PATCHES_DIR/btrfsprogs.mk.patch $DDWRT_REPO_DIR/src/router/rules/btrfsprogs.mk
 #patch -i $DDWRT_PATCHES_DIR/configure_btrfsprogs.ac.patch $DDWRT_REPO_DIR/src/router/btrfsprogs/configure.ac
 
-##several code changed
 patch -i $DDWRT_PATCHES_DIR/ntfs-3g.mk.patch $DDWRT_REPO_DIR/src/router/rules/ntfs-3g.mk  # 1 of 2
 
 ##disable conntrack and iptables-new-clean target
@@ -82,7 +79,6 @@ patch -i $DDWRT_PATCHES_DIR/iptables-new.mk.patch $DDWRT_REPO_DIR/src/router/rul
 ##others: corrected paths to libs, ...
 patch -i $DDWRT_PATCHES_DIR/util-linux.mk.patch $DDWRT_REPO_DIR/src/router/rules/util-linux.mk
 patch -i $DDWRT_PATCHES_DIR/igmp-proxy.mk.patch $DDWRT_REPO_DIR/src/router/rules/igmp-proxy.mk
-
 
 patch -i $DDWRT_PATCHES_DIR/sqlite.mk.patch $DDWRT_REPO_DIR/src/router/rules/sqlite.mk
 
@@ -143,7 +139,7 @@ patch -i $DDWRT_PATCHES_DIR/Makefile_transmission_daemon.am.patch $DDWRT_REPO_DI
 patch -i $DDWRT_PATCHES_DIR/softether.mk.patch $DDWRT_REPO_DIR/src/router/rules/softether.mk
 patch -i $DDWRT_PATCHES_DIR/CMakeLists_softether_src.txt.patch $DDWRT_REPO_DIR/src/router/softether/src/CMakeLists.txt
 
-# modified mk-files for make install
+# modified .mk files for make install
 patch -i $DDWRT_PATCHES_DIR/minidlna.mk.patch $DDWRT_REPO_DIR/src/router/rules/minidlna.mk
 
 cd $DDWRT_REPO_DIR/src/router
